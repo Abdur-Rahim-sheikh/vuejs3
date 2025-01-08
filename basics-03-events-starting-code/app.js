@@ -24,10 +24,11 @@ const app = Vue.createApp({
     },
     counter(value) {
       console.log(value);
+      this.name = value + ' ' + this.name
     },
     name(value, newvalue) {
       console.log(value, newvalue);
-      this.fullname = value;
+      this.counter += 1;
     }
   },
   methods: {
