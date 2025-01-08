@@ -24,11 +24,12 @@ const app = Vue.createApp({
     },
     counter(value) {
       console.log(value);
-      this.name = value + ' ' + this.name
+      // this.name = value + ' ' + this.name
+      if (value > 10) this.counter = 1
     },
     name(value, newvalue) {
       console.log(value, newvalue);
-      this.counter += 1;
+      // this.counter += 1;
     }
   },
   methods: {
