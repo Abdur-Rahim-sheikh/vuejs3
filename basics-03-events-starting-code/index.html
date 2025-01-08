@@ -18,13 +18,13 @@
   <section id="events">
     <h2>Events in Action</h2>
     <button v-on:click="add(2)">Add</button>
-    <button v-on:click.doubleclick="reduce()" title="Right click modifier">Reduce</button>
+    <button v-on:dblclick="reduce()" title="Right click modifier">Reduce</button>
 
     <p>Result: {{ counter }}</p>
     <!-- <input type="text" v-bind:value="name" v-on:input="setName($event, 'Sheikh')"> -->
     <input type="text" v-model="name">
     <button v-on:click="resetInput">Reset Input</button>
-    <p>Your Name: {{name}}</p>
+    <p>Your Name: {{fullname}}</p>
 </body>
 
 </html>
