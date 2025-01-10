@@ -25,7 +25,17 @@
     </ul> -->
     <p v-show="goals.length===0">No goals have been added yet - please start adding some!</p>
     <ul v-show="goals.length>0">
-      <li v-for="goal in goals">{{ goal }}</li>
+      <li v-for="(goal, idx) in goals">{{ idx }}-{{ goal }}!</li>
+    </ul>
+
+    <span style="color:red"> Below things can also be done</span>
+    <ul>
+      <li v-for="value in {name:'Abir', age:'26'}">{{value}}</li>
+      <!-- <li v-for="(value, key) in {name:'Abir', age:'26'}">{{key}}->{{value}}</li> -->
+      <!-- <li v-for="(value, key, index) in {name:'Abir', age:'26'}">{{index}}: {{key}}->{{value}}</li> -->
+    </ul>
+    <ul>
+      <li v-for="num in 4">{{num}}</li>
     </ul>
   </section>
 </body>
