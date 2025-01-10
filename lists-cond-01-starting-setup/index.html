@@ -25,7 +25,7 @@
     </ul> -->
     <p v-show="goals.length===0">No goals have been added yet - please start adding some!</p>
     <ul v-show="goals.length>0">
-      <li v-for="(goal, idx) in goals" @click="removeGoal(idx)" style="cursor:auto">
+      <li v-for="(goal, idx) in goals" :key="goal" @click="removeGoal(idx)" style="cursor:auto">
         <p>{{ idx }}-{{ goal }}!</p>
         <input type="text" @click.stop>
       </li>
