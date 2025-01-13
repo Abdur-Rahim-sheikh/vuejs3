@@ -16,3 +16,11 @@ it gets all the returned key values from data()
 
 1. v-on:event_name -> @:event_name
 2. v-bind:attribute_name -> :attribute_name
+
+## How vue updates the DOM
+
+First it creates a virtual DOM, then when the data changes, it creates a new virtual DOM and compares it with the old one. Then it updates the real DOM with the changes. As this happens in the RAM and not in the real DOM, it is very fast.
+
+## How vue is reactive
+
+Vue uses the javascript's proxy object to make the data reactive. It listens to the changes in the data and updates all bouned elements.
