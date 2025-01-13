@@ -80,7 +80,7 @@ const app = Vue.createApp({
         },
         surrender() {
             this.winner = 'monster';
-            this.addLog('player', 'surrender', null)
+            this.addLog('player', 'surrender', 0)
         },
         addLog(who, what, value) {
             this.logs.unshift({

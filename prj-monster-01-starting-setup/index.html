@@ -45,7 +45,8 @@
       <h2>Battle Log</h2>
       <ul>
         <li v-for="log in logs">
-          {{log.actionBy}}-{{log.actionType}}-{{log.actionValue}}
+          {{log.actionBy}}-{{log.actionType}}-{{log.actionValue.toFixed(2)}}
+          <span>{{log.actionBy.title}}</span>
         </li>
       </ul>
     </section>
