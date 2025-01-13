@@ -21,7 +21,7 @@ const app = Vue.createApp({
             return this.playerHealth + '%';
         },
         mayUseSpecialAttack() {
-            return (this.currentRound % 3) != 0
+            return this.currentRound > 2
         },
     },
     watch: {
@@ -60,7 +60,7 @@ const app = Vue.createApp({
             this.attackPlayer();
         },
         specialAttackMonster() {
-            this.currentRound += 1;
+            this.currentRound = 0;
             let damage = rangeRandom(10, 25);
             this.monsterHealth -= damage;
             this.addLog('player', 'special-attack', damage);
