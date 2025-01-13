@@ -3,11 +3,20 @@ function rangeRandom(min, max) {
 }
 
 const app = Vue.createApp({
+
     data() {
         return {
             playerHealth: 100,
-            monsterHealth: 150
+            monsterHealth: 100
         };
+    },
+    computed: {
+        monsterBar() {
+            return this.monsterHealth + '%';
+        },
+        playerBar() {
+            return this.playerHealth + '%';
+        }
     },
     methods: {
         attackMonster() {
