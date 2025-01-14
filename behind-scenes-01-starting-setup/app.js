@@ -1,4 +1,8 @@
 const app = Vue.createApp({
+  beforeCreate() {
+    console.log('beforeCreate')
+  },
+
   data() {
     return {
       currentUserInput: '',
@@ -13,6 +17,22 @@ const app = Vue.createApp({
       // this.message = this.currentUserInput;
       this.message = this.$refs.inputField.value;
     },
+  },
+
+  created() {
+    console.log('Created')
+  },
+  beforeMount() {
+    console.log('beforeMount')
+  },
+  mounted() {
+    console.log('mounted')
+  },
+  beforeUpdate() {
+    console.log('before update')
+  },
+  updated() {
+    console.log('updated')
   },
 });
 
