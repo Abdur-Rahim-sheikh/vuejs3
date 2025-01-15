@@ -21,8 +21,12 @@ export default {
 }
 </script>
 <template>
-    <h2>My Friends</h2>
+    <header>
+        <h1>My Friends</h1>
+    </header>
+
     <ul>
-        <li></li>
+        <FriendContact></FriendContact>
+
     </ul>
 </template>
