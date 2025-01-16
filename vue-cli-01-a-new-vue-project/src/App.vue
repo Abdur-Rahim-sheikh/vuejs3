@@ -26,8 +26,7 @@ export default {
     </header>
 
     <ul>
-        <FriendContact name="abir" phone="019" email="@kabir" isFavourite="2"></FriendContact>
-        <FriendContact name="nadu" email="@nabir"></FriendContact>
+        <FriendContact v-for="friend in friends" :key="friend.id" :friend="friend"></FriendContact>
 
     </ul>
 </template>
