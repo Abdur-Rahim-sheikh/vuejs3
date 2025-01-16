@@ -1,14 +1,26 @@
 <script>
 export default {
+    // props: ['name', 'phone', 'email', 'isFavourite'],
+    props: {
+        name: {
+            type: String,
+            required: true
+        },
+        phone: {
+            type: String,
+            required: true
+        },
+        email: String,
+        isFavourite: {
+            type: Boolean,
+            required: false,
+            default: false
+        }
+    },
     data() {
         return {
             visible: false,
-            friend: {
-                id: 'manuel',
-                name: 'Manuel Lorenz',
-                phone: '01234 5678 991',
-                email: 'abc@yahoo.com'
-            }
+            favouriteFriend: this.isFavourite
         }
 
     },
@@ -22,12 +34,13 @@ export default {
 
 <template>
     <li>
-        <h1>{{ friend.name }}</h1>
+        <h1>{{ name }} {{ favouriteFriend ? "(dear)" : "" }}</h1>
+        <button @click="favouriteFriend = !favouriteFriend">{{ favouriteFriend ? 'Unfavourite' : 'Favourite' }}</button>
         <button @click="toggleVisibility">Show Details</button>
 
         <ul v-if="visible">
-            <li><strong>Phone:</strong> {{ friend.phone }}</li>
-            <li><strong>Email:</strong> {{ friend.email }}</li>
+            <li><strong>Phone:</strong> {{ phone }}</li>
+            <li><strong>Email:</strong> {{ email }}</li>
         </ul>
     </li>
 </template>

@@ -26,7 +26,8 @@ export default {
     </header>
 
     <ul>
-        <FriendContact></FriendContact>
+        <FriendContact name="abir" phone="019" email="@kabir" isFavourite="2"></FriendContact>
+        <FriendContact name="nadu" email="@nabir"></FriendContact>
 
     </ul>
 </template>
