@@ -64,3 +64,29 @@ style IU fill:#a8ff9e,stroke:#333,stroke-width:2px,color:#000
     IU --When trying to unmount--> BUm["beforeUnmount()"]
     BUm --> Um["unmounted()"]
 ```
+
+## How emit works
+
+`$emit` is used to emit an event from the child component to the parent component. It is used to send data from child to parent.
+
+- We define a custom `event name` in the child component.
+- We listen to that event in the parent component using `@event_name`.
+- We define a function in the parent component to handle the data sent by the child component.
+  - which is attached as `@event_name="function_name"`.
+
+```javascript
+// child component
+this.$emit("event_name", data);
+```
+
+```html
+// parent component
+<child-component @event_name="function_name"></child-component>
+```
+
+```javascript
+// parent component
+function_name(data) {
+    console.log(data);
+}
+```
