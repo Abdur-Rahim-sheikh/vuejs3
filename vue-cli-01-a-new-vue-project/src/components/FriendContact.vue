@@ -7,6 +7,17 @@ export default {
             required: true
         }
     },
+    // emits:['toggleFavourite'],
+    emits: {
+        toggleFavourite(id) {
+            if (id) {
+                return true;
+            } else {
+                console.warn('id is Missing');
+                return false;
+            }
+        }
+    },
     data() {
         return {
             visible: false,
