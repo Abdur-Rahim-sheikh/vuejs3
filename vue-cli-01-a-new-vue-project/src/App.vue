@@ -30,6 +30,9 @@ export default {
             friendData.id = new Date().toISOString();
             friendData.isFavourite = false;
             this.friends.push(friendData);
+        },
+        deleteFriend(friendId) {
+            this.friends = this.friends.filter(friend => friend.id !== friendId);
         }
     }
 }
@@ -41,7 +44,7 @@ export default {
     <NewFriend @addFriend="addTem"> </NewFriend>
     <ul>
         <FriendContact v-for="friend in friends" :key="friend.id" :friend="friend"
-            @toggleFavourite="toggleFavouriteStatus"></FriendContact>
+            @toggleFavourite="toggleFavouriteStatus" @deleteFriend="deleteFriend"></FriendContact>
 
     </ul>
 </template>

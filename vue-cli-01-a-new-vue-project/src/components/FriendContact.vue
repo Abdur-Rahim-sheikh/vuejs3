@@ -7,17 +7,17 @@ export default {
             required: true
         }
     },
-    // emits:['toggleFavourite'],
-    emits: {
-        toggleFavourite(id) {
-            if (id) {
-                return true;
-            } else {
-                console.warn('id is Missing');
-                return false;
-            }
-        }
-    },
+    emits: ['toggleFavourite', 'deleteFriend'],
+    // emits: {
+    //     toggleFavourite(id) {
+    //         if (id) {
+    //             return true;
+    //         } else {
+    //             console.warn('id is Missing');
+    //             return false;
+    //         }
+    //     }
+    // },
     data() {
         return {
             visible: false,
@@ -31,7 +31,11 @@ export default {
         toggleFavourite() {
             console.log('toggleFavourite');
             this.$emit('toggleFavourite', this.friend.id);
-        }
+        },
+        // emited on-spot
+        // deleteFriend() {
+        //     this.$emit('deleteFriend', this.friend.id);
+        // }
     }
 };
 </script>
@@ -46,5 +50,6 @@ export default {
             <li><strong>Phone:</strong> {{ friend.phone }}</li>
             <li><strong>Email:</strong> {{ friend.email }}</li>
         </ul>
+        <button @click="this.$emit('deleteFriend', friend.id)">Delete</button>
     </li>
 </template>
