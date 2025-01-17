@@ -10,13 +10,16 @@ export default {
     data() {
         return {
             visible: false,
-            favouriteFriend: this.isFavourite
         }
 
     },
     methods: {
         toggleVisibility() {
             this.visible = !this.visible;
+        },
+        toggleFavourite() {
+            console.log('toggleFavourite');
+            this.$emit('toggleFavourite', this.friend.id);
         }
     }
 };
@@ -24,8 +27,8 @@ export default {
 
 <template>
     <li>
-        <h1>{{ friend.name }} {{ favouriteFriend ? "(dear)" : "" }}</h1>
-        <button @click="favouriteFriend = !favouriteFriend">{{ favouriteFriend ? 'Unfavourite' : 'Favourite' }}</button>
+        <h1>{{ friend.name }} {{ friend.isFavourite ? "(dear)" : "" }}</h1>
+        <button @click="toggleFavourite">{{ friend.isFavourite ? 'Unfavourite' : 'Favourite' }}</button>
         <button @click="toggleVisibility">Show Details</button>
 
         <ul v-if="visible">
