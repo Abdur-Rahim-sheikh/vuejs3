@@ -44,7 +44,7 @@ export default {
     <NewFriend @addFriend="addTem"> </NewFriend>
     <ul>
         <FriendContact v-for="friend in friends" :key="friend.id" :friend="friend"
-            @toggleFavourite="toggleFavouriteStatus" @deleteFriend="deleteFriend"></FriendContact>
+            @toggleFavourite="toggleFavouriteStatus" @delete="deleteFriend"></FriendContact>
 
     </ul>
 </template>

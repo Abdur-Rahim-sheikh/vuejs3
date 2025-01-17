@@ -50,6 +50,6 @@ export default {
             <li><strong>Phone:</strong> {{ friend.phone }}</li>
             <li><strong>Email:</strong> {{ friend.email }}</li>
         </ul>
-        <button @click="this.$emit('deleteFriend', friend.id)">Delete</button>
+        <button @click="this.$emit('delete', friend.id)">Delete</button>
     </li>
 </template>
