@@ -13,7 +13,7 @@ export default {
       topics: [
         {
           id: 'basics',
-          title: 'The Basics',
+          title: 'The Abir',
           description: 'Core Vue basics you have to know',
           fullText:
             'Vue is a great framework and it has a couple of key concepts: Data binding, events, components and reactivity - that should tell you something!',
@@ -32,7 +32,8 @@ export default {
   },
   provide() {
     return {
-      topics: this.topics
+      topics: this.topics,
+      selectTopic: this.activateTopic
     }
   },
   methods: {
@@ -40,6 +41,19 @@ export default {
       this.activeTopic = this.topics.find((topic) => topic.id === topicId);
     },
   },
+  mounted() {
+    let data = {
+      id: 'abir',
+      title: 'Changed',
+      description:
+        'The title are a core concept for building Vue UIs and apps',
+      fullText:
+        'Abir With components, you can split logic (and markup) into separate building blocks and then combine those building blocks (and re-use them) to build powerful user interfaces.',
+    }
+    setTimeout(() => {
+      this.topics.push(data)
+    }, 2000)
+  }
 };
 </script>
 
