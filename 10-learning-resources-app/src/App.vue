@@ -1,12 +1,12 @@
 <script>
-import ResourceItem from './components/resources/ResouceItem.vue'
+import StoredResources from './components/resources/StoredResources.vue'
 export default {
     components: {
-        ResourceItem,
+        StoredResources,
     },
     data() {
         return {
-            storedResources: [
+            resources: [
                 {
                     id: 'official-guide',
                     title: 'Official Guide',
@@ -26,7 +26,21 @@ export default {
 </script>
 
 <template>
-    <ul>
-        <ResourceItem :resource="resource" v-for="resource in storedResources" :key="resource.id"></ResourceItem>
-    </ul>
+    <StoredResources :resources="resources"></StoredResources>
 </template>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+</style>
