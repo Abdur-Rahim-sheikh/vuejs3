@@ -1,9 +1,9 @@
 <template>
   <section>
     <BaseCard>
-      <template v-slot:header>
+      <!-- <template v-slot:header>
         <h2>Available Badges</h2>
-      </template>
+      </template> -->
       <template v-slot:default>
         <ul>
           <li>
