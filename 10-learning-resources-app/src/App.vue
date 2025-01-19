@@ -1,8 +1,11 @@
 <script>
 import StoredResources from './components/resources/StoredResources.vue'
+import TheHeader from './components/layouts/TheHeader.vue'
+
 export default {
     components: {
         StoredResources,
+        TheHeader,
     },
     data() {
         return {
@@ -26,6 +29,7 @@ export default {
 </script>
 
 <template>
+    <TheHeader title="remember me" />
     <StoredResources :resources="resources"></StoredResources>
 </template>
 

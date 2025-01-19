@@ -1,4 +1,5 @@
 <script>
+
 export default {
     props: ["resource"]
 }
@@ -6,16 +7,19 @@ export default {
 
 <template>
     <li>
-        <div>
+
+        <BaseCard>
             <header>
                 <h3>{{ resource.title }}</h3>
                 <button>Delete</button>
             </header>
-        </div>
-        <p>{{ resource.description }}</p>
-        <nav>
-            <a :href="resource.link">View Resource</a>
-        </nav>
+
+
+            <p>{{ resource.description }}</p>
+            <nav>
+                <a :href="resource.link">View Resource</a>
+            </nav>
+        </BaseCard>
     </li>
 </template>
 
