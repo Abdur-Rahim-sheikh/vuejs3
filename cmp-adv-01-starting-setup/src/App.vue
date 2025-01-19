@@ -36,7 +36,9 @@ export default {
     <button @click="setSelectedComponent('ManageGoals')">Manage Goals </button>
     <!-- <ActiveGoals v-if="selectedComponent === 'ActiveGoals'" />
     <ManageGoals v-if="selectedComponent === 'ManageGoals'" /> -->
-    <component :is="selectedComponent"></component>
+    <KeepAlive>
+      <component :is="selectedComponent"></component>
+    </KeepAlive>
   </div>
 </template>
 
