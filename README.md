@@ -32,10 +32,7 @@ Vue uses the javascript's proxy object to make the data reactive. It listens to 
 like
 
 ```html
-<input
-	type="text"
-	ref="myInput"
-/>
+<input type="text" ref="myInput" />
 ```
 
 ```javascript
@@ -89,4 +86,28 @@ this.$emit("event_name", data);
 function_name(data) {
     console.log(data);
 }
+```
+
+## Fragments in vue2 vs vue3
+
+The surface level tags inside `template` are called fragment. In vue2 inside template we could use only a single fragment inside it. But vue3 supports multiple fragment.
+
+```javascript
+<template>
+	<h1>Header 1</h1>
+	<h2>Header 2</h2>
+	<input type="text" />
+</template>
+```
+
+The above syntax is not supported in vue2 because template has more than one tag/ fragment inside it's surface level. But vue3 allows it. To do the same thing in vue2 we had to wrap this in a `div` tag like below
+
+```javascript
+<template>
+	<div>
+		<h1>Header 1</h1>
+		<h2>Header 2</h2>
+		<input type="text" />
+	</div>
+</template>
 ```
