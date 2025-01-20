@@ -1,6 +1,11 @@
 <script>
 export default {
     inject: ['addResource'],
+    data() {
+        return {
+            invalidInput: false
+        }
+    },
     methods: {
         submitData() {
             // error handling
@@ -8,15 +13,30 @@ export default {
             const title = this.$refs.title.value
             const description = this.$refs.description.value
             const link = this.$refs.link.value
-            console.log(title, description, link)
-            this.addResource(title, description, link)
 
+            if (title.trim() === '' || description.trim() === '' || link.trim() === '') {
+                this.invalidInput = true
+                return
+            }
+            this.addResource(title, description, link)
+        },
+        confirmedOk() {
+            this.invalidInput = false
         }
     }
 }
 </script>
 
 <template>
+    <BaseDialog v-if="invalidInput" title="Invalid input" @close="confirmedOk">
+        <template #default>
+            <p>Unfortunately at least one value is invalid</p>
+        </template>
+        <template #actions>
+            <BaseButton @click="confirmedOk">OK</BaseButton>
+        </template>
+
+    </BaseDialog>
     <BaseCard>
         <form @submit.prevent="submitData">
             <div class="form-control">

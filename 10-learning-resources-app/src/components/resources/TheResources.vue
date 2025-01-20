@@ -69,7 +69,9 @@ export default {
             Resources</BaseButton>
         <BaseButton @click="changeResource('AddResources')" :mode="addResButtonMode">Add Resources</BaseButton>
     </BaseCard>
-    <component :is="selectedResources"></component>
 
+    <KeepAlive>
+        <component :is="selectedResources"></component>
+    </KeepAlive>
 
 </template>
