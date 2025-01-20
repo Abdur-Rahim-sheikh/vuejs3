@@ -41,11 +41,22 @@ export default {
     methods: {
         changeResource(elementName) {
             this.selectedResources = elementName
+        },
+        addResource(title, description, url) {
+            const newResource = {
+                id: new Date().toISOString(),
+                title: title,
+                description: description,
+                link: url
+            }
+            this.resources.unshift(newResource);
+            this.selectedResources = 'StoredResources'
         }
     },
     provide() {
         return {
-            resources: this.resources
+            resources: this.resources,
+            addResource: this.addResource
         }
     }
 
