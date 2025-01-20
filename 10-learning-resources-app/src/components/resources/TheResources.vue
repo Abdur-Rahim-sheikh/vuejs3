@@ -28,6 +28,15 @@ export default {
             ]
         }
     },
+    computed: {
+        storedResButtonMode() {
+            return this.selectedResources === 'StoredResources' ? null : 'flat'
+        },
+        addResButtonMode() {
+            return this.selectedResources === 'AddResources' ? null : 'flat'
+        }
+
+    },
 
     methods: {
         changeResource(elementName) {
@@ -45,8 +54,9 @@ export default {
 
 <template>
     <BaseCard>
-        <BaseButton @click="changeResource('StoredResources')">Stored Resources</BaseButton>
-        <BaseButton @click="changeResource('AddResources')">Add Resources</BaseButton>
+        <BaseButton @click="changeResource('StoredResources')" :mode="storedResButtonMode">Stored
+            Resources</BaseButton>
+        <BaseButton @click="changeResource('AddResources')" :mode="addResButtonMode">Add Resources</BaseButton>
     </BaseCard>
     <component :is="selectedResources"></component>
 
