@@ -1,5 +1,9 @@
 <script>
+import RatingControl from './RatingControl.vue'
 export default {
+  components: {
+    RatingControl
+  },
   data() {
     return {
       username: '',
@@ -8,7 +12,8 @@ export default {
       interests: [],
       how: null,
       confirm: false,
-      validateUsername: 'pending'
+      validateUsername: 'pending',
+      rating: null
     }
   },
   methods: {
@@ -17,11 +22,13 @@ export default {
       console.log('interests:', this.interests)
       console.log('how:', this.how)
       console.log('confirm:', this.confirm)
+      console.log('rating:', this.rating)
       this.username = ''
       this.referrer = 'wom'
       this.interests = []
       this.how = null
       this.confirm = false
+      this.rating = null
     },
     validate() {
 
@@ -84,6 +91,9 @@ export default {
         <input v-model="how" id="how-other" value="other" name="how" type="radio" />
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div class="form-control">
+      <RatingControl v-model="rating" />
     </div>
     <div class="form-control">
       <input v-model="confirm" type="checkbox" id="terms" name="terms">
