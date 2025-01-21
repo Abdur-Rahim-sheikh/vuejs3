@@ -7,7 +7,7 @@ export default {
       invalidInput: false,
       url: 'https://vue-http-demo-b6b20-default-rtdb.asia-southeast1.firebasedatabase.app/',
       endpoint: 'survey.json',
-
+      error: null,
     };
   },
   // emits: ['survey-submit'],
@@ -18,7 +18,7 @@ export default {
         return;
       }
       this.invalidInput = false;
-
+      this.error = null;
       // this.$emit('survey-submit', {
       //   userName: this.enteredName,
       //   rating: this.chosenRating,
@@ -33,6 +33,16 @@ export default {
           rating: this.chosenRating,
         }),
       })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Could not save the survey data!');
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.error(error);
+          this.error = error.message || 'Something went wrong!';
+        });
       this.enteredName = '';
       this.chosenRating = null;
     },
@@ -63,6 +73,7 @@ export default {
           <label for="rating-great">Great</label>
         </div>
         <p v-if="invalidInput">One or more input fields are invalid. Please check your provided data.</p>
+        <p v-if="error" style="color: tomato;">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>

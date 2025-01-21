@@ -10,8 +10,8 @@ export default {
     return {
       results: [],
       url: 'https://vue-http-demo-b6b20-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      // endpoint: 'survey.json',
-      endpoint: 'survey',
+      endpoint: 'survey.json',
+      // endpoint: 'survey(to force fail)',
       isLoading: true,
       error: null,
     };
