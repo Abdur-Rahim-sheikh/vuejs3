@@ -1,35 +1,44 @@
-<template>
-  <section>
-    <h2>{{ teamName }}</h2>
-    <ul>
-      <user-item
-        v-for="member in members"
-        :key="member.id"
-        :name="member.fullName"
-        :role="member.role"
-      ></user-item>
-    </ul>
-  </section>
-</template>
-
 <script>
 import UserItem from '../users/UserItem.vue';
 
 export default {
+  inject: ['users', 'teams'],
   components: {
     UserItem
   },
   data() {
     return {
-      teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
+      teamName: '',
+      members: [],
     };
   },
+  created() {
+    // console.log(this.$route)
+    const teamId = this.$route.params.teamId;
+    const team = this.teams.find(team => team.id === teamId);
+
+    const affliatedMembers = team.members;
+    const selectedMembers = [];
+    for (const memberId of affliatedMembers) {
+      const user = this.users.find(user => user.id === memberId);
+      selectedMembers.push({ id: user.id, fullName: user.fullName, role: user.role });
+    }
+
+    this.teamName = team.name;
+    this.members = selectedMembers;
+  }
 };
 </script>
+
+<template>
+  <section>
+    <h2>{{ teamName }}</h2>
+    <ul>
+      <user-item v-for="member in members" :key="member.id" :name="member.fullName" :role="member.role"></user-item>
+    </ul>
+  </section>
+</template>
+
 
 <style scoped>
 section {
