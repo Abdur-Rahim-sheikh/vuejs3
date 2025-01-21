@@ -51,12 +51,23 @@ export default {
             }
             this.resources.unshift(newResource);
             this.selectedResources = 'StoredResources'
+        },
+        removeResource(resourceId) {
+            // below code creates new array and assigns it to resources
+            // that's why it does not work
+            // this.resources = this.resources.filter(resource => resource.id !== resourceId)
+
+            // so we need to keep the reference of the original array
+            let idx = this.resources.findIndex(resource => resource.id === resourceId)
+            this.resources.splice(idx, 1)
+            console.log(this.resources.length)
         }
     },
     provide() {
         return {
             resources: this.resources,
-            addResource: this.addResource
+            addResource: this.addResource,
+            removeResource: this.removeResource
         }
     }
 

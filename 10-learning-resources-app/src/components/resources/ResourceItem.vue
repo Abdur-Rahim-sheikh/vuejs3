@@ -1,7 +1,8 @@
 <script>
 
 export default {
-    props: ["resource"]
+    props: ["resource"],
+    inject: ['removeResource'],
 }
 </script>
 
@@ -11,7 +12,7 @@ export default {
         <BaseCard>
             <header>
                 <h3>{{ resource.title }}</h3>
-                <BaseButton mode="flat">Delete</BaseButton>
+                <BaseButton mode="flat" @click="removeResource(resource.id)">Delete</BaseButton>
             </header>
 
 
