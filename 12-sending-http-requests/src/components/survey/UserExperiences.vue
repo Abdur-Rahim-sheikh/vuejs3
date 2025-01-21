@@ -10,8 +10,10 @@ export default {
     return {
       results: [],
       url: 'https://vue-http-demo-b6b20-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      endpoint: 'survey.json',
+      // endpoint: 'survey.json',
+      endpoint: 'survey',
       isLoading: true,
+      error: null,
     };
   },
   methods: {
@@ -34,6 +36,11 @@ export default {
           this.results = results;
           this.isLoading = false;
 
+        })
+        .catch(error => {
+          console.error(error);
+          this.isLoading = false;
+          this.error = error.message || 'Something went wrong!';
         });
       // we cannot use here as it will not wait for the fetch to complete
       // this.isLoading = false;
@@ -57,6 +64,7 @@ export default {
         <SurveyResult v-for="result in results" :key="result.id" :name="result.name" :rating="result.rating">
         </SurveyResult>
       </ul>
+      <p v-else-if="error" style="color: tomato;">{{ error }}</p>
       <p v-else>No experiences submitted yet!</p>
 
     </base-card>
