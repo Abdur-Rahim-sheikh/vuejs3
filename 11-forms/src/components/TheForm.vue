@@ -1,12 +1,30 @@
+<script>
+export default {
+  data() {
+    return {
+      username: '',
+      userAge: null,
+    }
+  },
+  methods: {
+    submitForm() {
+      console.log(this.username)
+      console.log(typeof this.userAge)
+      this.username = ''
+    }
+  }
+}
+</script>
+
 <template>
-  <form>
+  <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" />
+      <input v-model="username" id="user-name" name="user-name" type="text" />
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
-      <input id="age" name="age" type="number" />
+      <input v-model="userAge" id="age" name="age" type="number" />
     </div>
     <div class="form-control">
       <label for="referrer">How did you hear about us?</label>
@@ -94,8 +112,8 @@ input[type='radio'] {
   margin-right: 1rem;
 }
 
-input[type='checkbox'] + label,
-input[type='radio'] + label {
+input[type='checkbox']+label,
+input[type='radio']+label {
   font-weight: normal;
 }
 
