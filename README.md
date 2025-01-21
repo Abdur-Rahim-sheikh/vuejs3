@@ -92,7 +92,7 @@ function_name(data) {
 
 The surface level tags inside `template` are called fragment. In vue2 inside template we could use only a single fragment inside it. But vue3 supports multiple fragment.
 
-```javascript
+```html
 <template>
 	<h1>Header 1</h1>
 	<h2>Header 2</h2>
@@ -102,7 +102,7 @@ The surface level tags inside `template` are called fragment. In vue2 inside tem
 
 The above syntax is not supported in vue2 because template has more than one tag/ fragment inside it's surface level. But vue3 allows it. To do the same thing in vue2 we had to wrap this in a `div` tag like below
 
-```javascript
+```html
 <template>
 	<div>
 		<h1>Header 1</h1>
@@ -111,3 +111,17 @@ The above syntax is not supported in vue2 because template has more than one tag
 	</div>
 </template>
 ```
+
+## router-link-active vs router-link-exact-active
+
+- The exact-active means exactly the url matches in the `<RouterLink to="address">` address
+- but active means any nested route originate from the route also implies the route is active
+
+for example
+
+```HTML
+<RouterLink to="/users"/>
+```
+
+then is route `/users` we get `both` active and exactive attribute
+but in `/users/details` we get `only` active tag.
