@@ -6,6 +6,7 @@ import UsersList from './components/users/UsersList.vue'
 import TeamMembers from './components/teams/TeamMembers.vue'
 const router = createRouter({
     routes: [
+        { path: '/', redirect: '/teams' },
         { path: '/teams', component: TeamsList },
         { path: '/users', component: UsersList },
         { path: '/teams/:teamId', component: TeamMembers, props: true },
