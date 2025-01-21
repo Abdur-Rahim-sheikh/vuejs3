@@ -12,25 +12,35 @@ export default {
       members: [],
     };
   },
-  created() {
-    // console.log(this.$route)
-    const teamId = this.$route.params.teamId;
-    const team = this.teams.find(team => team.id === teamId);
+  methods: {
+    loadTeamMembers() {
+      const teamId = this.$route.params.teamId;
+      const team = this.teams.find(team => team.id === teamId);
 
-    const affliatedMembers = team.members;
-    const selectedMembers = [];
-    for (const memberId of affliatedMembers) {
-      const user = this.users.find(user => user.id === memberId);
-      selectedMembers.push({ id: user.id, fullName: user.fullName, role: user.role });
+      const affliatedMembers = team.members;
+      const selectedMembers = [];
+      for (const memberId of affliatedMembers) {
+        const user = this.users.find(user => user.id === memberId);
+        selectedMembers.push({ id: user.id, fullName: user.fullName, role: user.role });
+      }
+
+      this.teamName = team.name;
+      this.members = selectedMembers;
     }
-
-    this.teamName = team.name;
-    this.members = selectedMembers;
+  },
+  watch: {
+    $route() {
+      this.loadTeamMembers();
+    }
+  },
+  created() {
+    this.loadTeamMembers();
   }
 };
 </script>
 
 <template>
+  <RouterLink to="/teams/t3">Consulting Team</RouterLink>
   <section>
     <h2>{{ teamName }}</h2>
     <ul>
