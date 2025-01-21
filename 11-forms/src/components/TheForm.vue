@@ -4,13 +4,33 @@ export default {
     return {
       username: '',
       userAge: null,
+      referrer: 'wom',
+      interests: [],
+      how: null,
+      confirm: false,
+      validateUsername: 'pending'
     }
   },
   methods: {
     submitForm() {
-      console.log(this.username)
-      console.log(typeof this.userAge)
+      console.log('referrer:', this.referrer)
+      console.log('interests:', this.interests)
+      console.log('how:', this.how)
+      console.log('confirm:', this.confirm)
       this.username = ''
+      this.referrer = 'wom'
+      this.interests = []
+      this.how = null
+      this.confirm = false
+    },
+    validate() {
+
+      if (!this.username) {
+        this.validateUsername = 'invalid'
+      } else {
+        this.validateUsername = 'valid'
+      }
+      console.log(this.username, this.validateUsername)
     }
   }
 }
@@ -18,9 +38,10 @@ export default {
 
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: validateUsername === 'invalid' }">
       <label for="user-name">Your Name</label>
-      <input v-model="username" id="user-name" name="user-name" type="text" />
+      <input v-model.trim="username" id="user-name" name="user-name" type="text" @blur="validate" />
+      <p v-if="validateUsername === 'invalid'">Please enter a valid name!</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
@@ -28,7 +49,7 @@ export default {
     </div>
     <div class="form-control">
       <label for="referrer">How did you hear about us?</label>
-      <select id="referrer" name="referrer">
+      <select v-model="referrer" id="referrer" name="referrer">
         <option value="google">Google</option>
         <option value="wom">Word of mouth</option>
         <option value="newspaper">Newspaper</option>
@@ -37,32 +58,36 @@ export default {
     <div class="form-control">
       <h2>What are you interested in?</h2>
       <div>
-        <input id="interest-news" name="interest" type="checkbox" />
+        <input v-model="interests" id="interest-news" value="news" name="interest" type="checkbox" />
         <label for="interest-news">News</label>
       </div>
       <div>
-        <input id="interest-tutorials" name="interest" type="checkbox" />
+        <input v-model="interests" id="interest-tutorials" value="tutorials" name="interest" type="checkbox" />
         <label for="interest-tutorials">Tutorials</label>
       </div>
       <div>
-        <input id="interest-nothing" name="interest" type="checkbox" />
+        <input v-model="interests" id="interest-nothing" value="nothing" name="interest" type="checkbox" />
         <label for="interest-nothing">Nothing</label>
       </div>
     </div>
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" />
+        <input v-model="how" id="how-video" value="video" name="how" type="radio" />
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-blogs" name="how" type="radio" />
+        <input v-model="how" id="how-blogs" value="blogs" name="how" type="radio" />
         <label for="how-blogs">Blogs</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" />
+        <input v-model="how" id="how-other" value="other" name="how" type="radio" />
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div class="form-control">
+      <input v-model="confirm" type="checkbox" id="terms" name="terms">
+      <label for="terms">Agree to terms of use?</label>
     </div>
     <div>
       <button>Save Data</button>
@@ -82,6 +107,15 @@ form {
 
 .form-control {
   margin: 0.5rem 0;
+}
+
+.form-control.invalid input {
+  background-color: #ffd7d7;
+  border-color: #ff0000;
+}
+
+.form-control.invalid label {
+  color: #ff0000;
 }
 
 label {
