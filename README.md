@@ -125,3 +125,28 @@ for example
 
 then is route `/users` we get `both` active and exactive attribute
 but in `/users/details` we get `only` active tag.
+
+## route vs router
+
+We can achieve both variable after `npm install` one everywhere and the other to those component where we navigated to.
+
+### route methods accessing $this.route.method_name
+
+| Method   | Description                                                                         |
+| -------- | ----------------------------------------------------------------------------------- |
+| params   | object containing key/value pairs of the route params                               |
+| query    | object containing key/value pairs of the query string                               |
+| hash     | the hash of the current route                                                       |
+| fullPath | the full resolved URL including query and hash                                      |
+| matched  | an array containing route records for all nested path segments of the current route |
+
+### router methods accessing $this.router.method_name
+
+| Method               | Description                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| push                 | navigate to a different URL. The current page will be added to the history stack    |
+| replace              | navigate to a different URL. The current page will be replaced in the history stack |
+| go                   | navigate to a specific position in the history stack                                |
+| back                 | equivalent to go(-1)                                                                |
+| forward              | equivalent to go(1)                                                                 |
+| getMatchedComponents | returns an array of the components matched by the current route                     |
