@@ -1,23 +1,10 @@
-<template>
-  <div class="container">
-    <div class="block" :class="{ animate: blockAnimated }"></div>
-    <button @click="animateBlock">Animate</button>
-  </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
-</template>
-
 <script>
 export default {
   data() {
     return {
       dialogIsVisible: false,
-      blockAnimated: false
+      blockAnimated: false,
+      paraIsVisible: false,
     };
   },
   methods: {
@@ -32,10 +19,36 @@ export default {
       // setTimeout(() => {
       //   this.blockAnimated = false;
       // }, 300);
-    }
+    },
+    toggleParagraph() {
+      this.paraIsVisible = !this.paraIsVisible;
+    },
   },
 };
 </script>
+
+<template>
+  <div class="container">
+    <div class="block" :class="{ animate: blockAnimated }"></div>
+    <button @click="animateBlock">Animate</button>
+  </div>
+  <div class="container">
+    <transition>
+      <p v-if="paraIsVisible">This is a test paragraph!</p>
+    </transition>
+    <button @click="toggleParagraph">Toggle Paragraph</button>
+
+  </div>
+  <base-modal @close="hideDialog" v-if="dialogIsVisible">
+    <p>This is a test dialog!</p>
+    <button @click="hideDialog">Close it!</button>
+  </base-modal>
+  <div class="container">
+    <button @click="showDialog">Show Dialog</button>
+  </div>
+</template>
+
+
 
 <style>
 * {
@@ -90,6 +103,23 @@ button:active {
 .animate {
   /* transform: translateX(-50px); */
   animation: slideFade 0.3s ease-out forwards;
+}
+
+.v-leave-to,
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.v-leave-active,
+.v-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.v-leave-from,
+.v-enter-to {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes slideFade {
