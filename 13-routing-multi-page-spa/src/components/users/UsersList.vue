@@ -18,7 +18,11 @@ export default {
       // my work
       this.$router.push('/teams')
     }
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log('beforeRouteEnter');
+    next();
+  },
 };
 </script>
 
