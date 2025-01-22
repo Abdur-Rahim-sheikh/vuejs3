@@ -1,5 +1,7 @@
 <template>
   <button @click="confirmInput">Confirm</button>
+  <button @click="saveChanges" :style="{ color: changesSaved ? 'green' : 'black' }">{{ changesSaved ? 'Changes Saved' :
+    'Save Changes' }}</button>
   <ul>
     <user-item v-for="user in users" :key="user.id" :name="user.fullName" :role="user.role"></user-item>
   </ul>
@@ -13,16 +15,34 @@ export default {
     UserItem,
   },
   inject: ['users'],
+  data() {
+    return {
+      changesSaved: false
+    }
+  },
   methods: {
     confirmInput() {
       // my work
       this.$router.push('/teams')
+    },
+    saveChanges() {
+      this.changesSaved = true;
     }
   },
   beforeRouteEnter(to, from, next) {
     console.log('beforeRouteEnter');
     next();
   },
+  beforeRouteLeave(to, from, next) {
+    console.log('beforeRouteLeave');
+    if (!this.changesSaved) {
+      const userResponse = confirm('Do you want to leave without saving changes?');
+      if (userResponse) {
+        next();
+      }
+    }
+    else next();
+  }
 };
 </script>
 
