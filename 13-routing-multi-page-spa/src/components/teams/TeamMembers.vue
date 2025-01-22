@@ -31,10 +31,12 @@ export default {
   watch: {
     teamId(newvalue) {
       this.loadTeamMembers(newvalue);
+      console(this.$route.query);
     }
   },
   created() {
     this.loadTeamMembers(this.teamId);
+
   }
 };
 </script>
