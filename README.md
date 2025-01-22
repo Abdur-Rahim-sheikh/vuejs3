@@ -150,3 +150,7 @@ We can achieve both variable after `npm install` one everywhere and the other to
 | back                 | equivalent to go(-1)                                                                |
 | forward              | equivalent to go(1)                                                                 |
 | getMatchedComponents | returns an array of the components matched by the current route                     |
+
+## routers redirect vs alias
+
+redirect is used to redirect the user to a different route literally changes the url in the browser but alias is used to show the same component on different urls without changing the url in the browser.
