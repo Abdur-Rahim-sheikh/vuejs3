@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     teamMembersLink() {
-      return '/teams/' + this.team.id;
+      return { name: 'team-members', params: { teamId: this.team.id } };
     }
   }
 };
