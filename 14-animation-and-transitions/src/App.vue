@@ -33,7 +33,7 @@ export default {
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition>
+    <transition name="para" mode="in-out">
       <p v-if="paraIsVisible">This is a test paragraph!</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -105,24 +105,24 @@ button:active {
   animation: slideFade 0.3s ease-out forwards;
 }
 
-.v-leave-to,
-.v-enter-from {
-  opacity: 0;
-  transform: translateY(-20px);
+.para-leave-to,
+.para-enter-from {
+  /* opacity: 0;
+  transform: translateY(-20px); */
 }
 
-.v-leave-active,
-.v-enter-active {
-  transition: all 0.3s ease-out;
+.para-leave-active,
+.para-enter-active {
+  animation: slideScale 0.5s ease-out;
 }
 
-.v-leave-from,
-.v-enter-to {
-  opacity: 1;
-  transform: translateY(0);
+.para-leave-from,
+.para-enter-to {
+  /* opacity: 1;
+  transform: translateY(0); */
 }
 
-@keyframes slideFade {
+@keyframes slideScale {
   0% {
     transform: translateX(0) scale(1);
   }
