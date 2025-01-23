@@ -39,10 +39,12 @@ export default {
     <button @click="toggleParagraph">Toggle Paragraph</button>
 
   </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
+  <transition name="modal">
+    <base-modal @close="hideDialog" :open="dialogIsVisible">
+      <p>This is a test dialog!</p>
+      <button @click="hideDialog">Close it!</button>
+    </base-modal>
+  </transition>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
@@ -105,22 +107,24 @@ button:active {
   animation: slideFade 0.3s ease-out forwards;
 }
 
-.para-leave-to,
+/* .para-leave-to,
 .para-enter-from {
-  /* opacity: 0;
-  transform: translateY(-20px); */
-}
+  opacity: 0;
+  transform: translateY(-20px);
+} */
 
 .para-leave-active,
 .para-enter-active {
   animation: slideScale 0.5s ease-out;
 }
 
-.para-leave-from,
+/* .para-leave-from,
 .para-enter-to {
-  /* opacity: 1;
-  transform: translateY(0); */
-}
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+
 
 @keyframes slideScale {
   0% {

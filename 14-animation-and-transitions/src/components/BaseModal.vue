@@ -1,12 +1,15 @@
 <template>
-  <div class="backdrop" @click="$emit('close')"></div>
-  <dialog open>
-    <slot></slot>
-  </dialog>
+  <div v-if="open" class="backdrop" @click="$emit('close')"></div>
+  <Transition name="modal">
+    <dialog open v-if="open">
+      <slot></slot>
+    </dialog>
+  </Transition>
 </template>
 
 <script>
 export default {
+  props: ['open'],
   emits: ['close'],
 };
 </script>
@@ -34,7 +37,20 @@ dialog {
   background-color: white;
   z-index: 100;
   border: none;
-  animation: modal 0.3s ease-in forwards;
+  /* animation: modal 0.3s ease-in forwards; */
+}
+
+
+.modal-enter-from {}
+
+.modal-enter-active {
+  animation: modal 0.3s ease-out forwards;
+}
+
+.modal-enter-to {}
+
+.modal-leave-active {
+  animation: modal 0.3s ease-in forwards reverse;
 }
 
 @keyframes modal {
