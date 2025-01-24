@@ -6,6 +6,8 @@ export default {
       blockAnimated: false,
       paraIsVisible: false,
       usersVisible: false,
+      enterIntervalId: null,
+      leaveIntervalId: null,
     };
   },
   methods: {
@@ -38,28 +40,46 @@ export default {
     enter(el, done) {
       console.log('enter');
       let round = 1, chunk = 100;
-      const interval = setInterval(() => {
+      this.enterIntervalId = setInterval(() => {
         el.style.opacity = round / chunk;
         round++;
         if (round > chunk) {
-          clearInterval(interval);
+          clearInterval(this.enterIntervalId);
           done();
         }
-      }, 50);
+      }, 20);
 
     },
     afterEnter(el) {
       console.log('afterEnter is called after the transition has finished');
       console.log(el);
     },
-    beforeLeave() {
+    beforeLeave(el) {
       console.log('beforeLeave');
+      el.style.opacity = 1;
     },
-    leave() {
+    leave(el, done) {
       console.log('leave');
+      let round = 1, chunk = 100;
+      this.leaveIntervalId = setInterval(() => {
+        el.style.opacity = 1 - round / chunk;
+        round++;
+        if (round > chunk) {
+          clearInterval(this.leaveIntervalId);
+          done();
+        }
+      }, 20);
     },
     afterLeave() {
       console.log('afterLeave is called after the transition has finished');
+    },
+    enterCancelled() {
+      console.log('enterCancelled is called when the transition is cancelled');
+      clearInterval(this.enterIntervalId);
+    },
+    leaveCancelled() {
+      console.log('leaveCancelled is called when the transition is cancelled');
+      clearInterval(this.leaveIntervalId);
     },
   },
 };
@@ -72,7 +92,8 @@ export default {
   </div>
   <div class="container">
     <transition name="para" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter"
-      @before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave">
+      @before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave" @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled">
       <p v-if="paraIsVisible">This is a test paragraph!</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
