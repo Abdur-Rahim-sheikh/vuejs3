@@ -30,6 +30,37 @@ export default {
     hideUsers() {
       this.usersVisible = false;
     },
+    beforeEnter(el) {
+      console.log('beforeEnter');
+      el.style.opacity = 0;
+
+    },
+    enter(el, done) {
+      console.log('enter');
+      let round = 1, chunk = 100;
+      const interval = setInterval(() => {
+        el.style.opacity = round / chunk;
+        round++;
+        if (round > chunk) {
+          clearInterval(interval);
+          done();
+        }
+      }, 50);
+
+    },
+    afterEnter(el) {
+      console.log('afterEnter is called after the transition has finished');
+      console.log(el);
+    },
+    beforeLeave() {
+      console.log('beforeLeave');
+    },
+    leave() {
+      console.log('leave');
+    },
+    afterLeave() {
+      console.log('afterLeave is called after the transition has finished');
+    },
   },
 };
 </script>
@@ -40,7 +71,8 @@ export default {
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition name="para" mode="out-in">
+    <transition name="para" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter"
+      @before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave">
       <p v-if="paraIsVisible">This is a test paragraph!</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -51,12 +83,11 @@ export default {
       <button v-else @click="hideUsers">Hide Users</button>
     </transition>
   </div>
-  <transition name="modal">
-    <base-modal @close="hideDialog" :open="dialogIsVisible">
-      <p>This is a test dialog!</p>
-      <button @click="hideDialog">Close it!</button>
-    </base-modal>
-  </transition>
+
+  <base-modal @close="hideDialog" :open="dialogIsVisible">
+    <p>This is a test dialog!</p>
+    <button @click="hideDialog">Close it!</button>
+  </base-modal>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
@@ -119,22 +150,6 @@ button:active {
   animation: slideFade 0.3s ease-out forwards;
 }
 
-/* .para-leave-to,
-.para-enter-from {
-  opacity: 0;
-  transform: translateY(-20px);
-} */
-
-.para-leave-active,
-.para-enter-active {
-  animation: slideScale 0.5s ease-out;
-}
-
-/* .para-leave-from,
-.para-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-} */
 
 .fade-button-enter-from,
 .fade-button-leave-to {
