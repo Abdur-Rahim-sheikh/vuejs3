@@ -5,6 +5,7 @@ export default {
       dialogIsVisible: false,
       blockAnimated: false,
       paraIsVisible: false,
+      usersVisible: false,
     };
   },
   methods: {
@@ -23,6 +24,12 @@ export default {
     toggleParagraph() {
       this.paraIsVisible = !this.paraIsVisible;
     },
+    showUsers() {
+      this.usersVisible = true;
+    },
+    hideUsers() {
+      this.usersVisible = false;
+    },
   },
 };
 </script>
@@ -37,7 +44,12 @@ export default {
       <p v-if="paraIsVisible">This is a test paragraph!</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
-
+  </div>
+  <div class="container">
+    <transition name="fade-button">
+      <button v-if="!usersVisible" @click="showUsers">Show Users</button>
+      <button v-else @click="hideUsers">Hide Users</button>
+    </transition>
   </div>
   <transition name="modal">
     <base-modal @close="hideDialog" :open="dialogIsVisible">
@@ -124,7 +136,23 @@ button:active {
   transform: translateY(0);
 } */
 
+.fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
+}
 
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
+}
+
+.fade-button-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.5s ease-in;
+}
 
 @keyframes slideScale {
   0% {
