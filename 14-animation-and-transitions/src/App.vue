@@ -40,13 +40,13 @@ export default {
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition name="para" mode="in-out">
+    <transition name="para" mode="out-in">
       <p v-if="paraIsVisible">This is a test paragraph!</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
   </div>
   <div class="container">
-    <transition name="fade-button">
+    <transition name="fade-button" mode="out-in">
       <button v-if="!usersVisible" @click="showUsers">Show Users</button>
       <button v-else @click="hideUsers">Hide Users</button>
     </transition>
