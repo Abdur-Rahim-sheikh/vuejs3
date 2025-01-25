@@ -1,3 +1,9 @@
+<script>
+export default {
+  props: ['title'],
+};
+</script>
+
 <template>
   <section>
     <h2>{{ title }}</h2>
@@ -5,11 +11,7 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: ['title'],
-};
-</script>
+
 
 <style scoped>
 section {
