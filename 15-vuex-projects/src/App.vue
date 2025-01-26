@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: false,
+
       products: [
         {
           id: 'p1',
@@ -45,8 +45,7 @@ export default {
       cart: this.cart,
       addProductToCart: this.addProductToCart,
       removeProductFromCart: this.removeProductFromCart,
-      login: this.login,
-      logout: this.logout,
+
     };
   },
   methods: {
@@ -80,12 +79,7 @@ export default {
       this.cart.qty -= prodData.qty;
       this.cart.total -= prodData.price * prodData.qty;
     },
-    login() {
-      this.isLoggedIn = true;
-    },
-    logout() {
-      this.isLoggedIn = false;
-    },
+
   },
 };
 </script>
