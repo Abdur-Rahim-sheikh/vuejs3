@@ -1,3 +1,16 @@
+<script>
+import { mapGetters, mapActions } from 'vuex'
+export default {
+  inject: ['cart'],
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  },
+  methods: {
+    ...mapActions(['login', 'logout'])
+  }
+};
+</script>
+
 <template>
   <header>
     <h1>
@@ -24,11 +37,7 @@
   </header>
 </template>
 
-<script>
-export default {
-  inject: ['isLoggedIn', 'login', 'logout', 'cart'],
-};
-</script>
+
 
 <style scoped>
 header {
