@@ -2,19 +2,23 @@
 import BaseContainer from './components/BaseContainer.vue';
 import TheCounter from './components/TheCounter'
 import ChangeCounter from './components/ChangeCounter'
-import { mapActions } from 'vuex'
+import UserAuth from './components/UserAuth.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     BaseContainer,
     TheCounter,
-    ChangeCounter
+    ChangeCounter,
+    UserAuth
   },
   computed: {
     counter() {
       return this.$store.getters.finalCounter;
-    }
+    },
+    ...mapGetters(['loginStatus'])
   },
+
   methods: {
     // addTen() {
     //   // this.$store.commit('increase', { value: 10 })
@@ -29,11 +33,15 @@ export default {
 </script>
 
 <template>
-  <base-container title="Vuex">
+  <base-container v-if="loginStatus" title="Vuex">
     <h3>{{ counter }}</h3>
     <TheCounter />
     <ChangeCounter />
     <button @click="increase({ value: 10 })">Add 10</button>
+  </base-container>
+
+  <base-container title="Auth">
+    <user-auth></user-auth>
   </base-container>
 </template>
 
