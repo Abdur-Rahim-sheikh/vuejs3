@@ -2,6 +2,8 @@
 import BaseContainer from './components/BaseContainer.vue';
 import TheCounter from './components/TheCounter'
 import ChangeCounter from './components/ChangeCounter'
+import { mapActions } from 'vuex'
+
 export default {
   components: {
     BaseContainer,
@@ -14,13 +16,14 @@ export default {
     }
   },
   methods: {
-    addTen() {
-      // this.$store.commit('increase', { value: 10 })
-      this.$store.dispatch({
-        type: 'increase',
-        value: 10
-      })
-    }
+    // addTen() {
+    //   // this.$store.commit('increase', { value: 10 })
+    //   this.$store.dispatch({
+    //     type: 'increase',
+    //     value: 10
+    //   })
+    // }
+    ...mapActions(['increase'])
   }
 };
 </script>
@@ -30,7 +33,7 @@ export default {
     <h3>{{ counter }}</h3>
     <TheCounter />
     <ChangeCounter />
-    <button @click="addTen">Add 10</button>
+    <button @click="increase({ value: 10 })">Add 10</button>
   </base-container>
 </template>
 
