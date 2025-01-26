@@ -16,7 +16,7 @@ export default {
     counter() {
       return this.$store.getters.finalCounter;
     },
-    ...mapGetters(['loginStatus'])
+    ...mapGetters(['isAuthenticated'])
   },
 
   methods: {
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <base-container v-if="loginStatus" title="Vuex">
+  <base-container v-if="isAuthenticated" title="Vuex">
     <h3>{{ counter }}</h3>
     <TheCounter />
     <ChangeCounter />

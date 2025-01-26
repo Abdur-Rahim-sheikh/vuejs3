@@ -1,7 +1,10 @@
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
+    computed: {
+        ...mapGetters(['isAuthenticated'])
+    },
     methods: {
         ...mapActions(['logIn', 'logOut'])
     }
@@ -9,6 +12,6 @@ export default {
 </script>
 
 <template>
-    <button @click="logIn">Login</button>
-    <button @click="logOut">Logout</button>
+    <button v-if="!isAuthenticated" @click="logIn">Login</button>
+    <button v-else @click="logOut">Logout</button>
 </template>
