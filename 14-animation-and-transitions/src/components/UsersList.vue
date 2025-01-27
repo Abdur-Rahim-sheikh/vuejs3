@@ -29,13 +29,17 @@ export default {
     </transition-group>
 
 
-    <div>
+    <div class="insert-list">
         <input v-model.lazy="newUser" type="text" @keyup.enter="addUser" />
         <button @click="addUser">Add User</button>
     </div>
 </template>
 
 <style scoped>
+.insert-list {
+    display: flex;
+}
+
 ul {
     list-style: none;
     margin: 1rem 0;
