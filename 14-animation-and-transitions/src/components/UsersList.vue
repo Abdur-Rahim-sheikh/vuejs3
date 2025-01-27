@@ -23,9 +23,11 @@ export default {
 </script>
 
 <template>
-    <ul>
+
+    <transition-group tag="ul" name="user">
         <li v-for="user in users" :key="user" @click="removeUser(user)">{{ user }}</li>
-    </ul>
+    </transition-group>
+
 
     <div>
         <input v-model.lazy="newUser" type="text">
@@ -45,5 +47,22 @@ li {
     padding: 1rem;
     text-align: center;
     cursor: alias;
+}
+
+.user-enter-from,
+.user-leave-to {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.user-enter-active,
+.user-leave-active {
+    transition: all 1s ease-out;
+}
+
+.user-enter-to,
+.user-leave-from {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
