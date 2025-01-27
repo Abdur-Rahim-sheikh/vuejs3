@@ -8,9 +8,19 @@ export default {
       return (this.item.price * this.item.qty).toFixed(2);
     },
 
+
   },
   methods: {
-    ...mapActions(['removeFromCart'])
+    ...mapActions(['removeFromCart', 'updateQuantity']),
+    updateQty(event) {
+      let qty = parseInt(event.target.value)
+
+      this.updateQuantity({
+        productId: this.item.productId,
+        quantity: qty
+      })
+    }
+
   }
 };
 </script>
@@ -29,7 +39,7 @@ export default {
         </div>
         <div>
           Quantity:
-          <strong>{{ item.qty }}</strong>
+          <strong><input type="number" :value="item.qty" style="width:7ch" @change="updateQty"></strong>
         </div>
       </div>
       <div class="item__total">Total: ${{ itemTotal }}</div>

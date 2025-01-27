@@ -1,3 +1,17 @@
+<script>
+import ProductItem from '../components/products/ProductItem.vue';
+import { mapGetters } from 'vuex';
+export default {
+
+  components: {
+    ProductItem,
+  },
+  computed: {
+    ...mapGetters(['products']),
+  },
+};
+</script>
+
 <template>
   <section>
     <ul>
@@ -5,17 +19,6 @@
     </ul>
   </section>
 </template>
-
-<script>
-import ProductItem from '../components/products/ProductItem.vue';
-
-export default {
-  inject: ['products'],
-  components: {
-    ProductItem,
-  },
-};
-</script>
 
 <style scoped>
 ul {

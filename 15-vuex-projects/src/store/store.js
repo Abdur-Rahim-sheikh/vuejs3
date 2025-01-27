@@ -1,8 +1,11 @@
 import { createStore } from 'vuex'
 import cart from './cart.js'
+import products from './products.js'
+
 const store = createStore({
     modules: {
-        cart
+        cart,
+        products
     },
     state() {
         return {

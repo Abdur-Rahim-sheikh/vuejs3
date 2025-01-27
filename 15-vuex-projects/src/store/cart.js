@@ -8,6 +8,8 @@ export default {
     },
     mutations: {
         addToCart(state, product) {
+            state.qty++;
+            state.total += product.price;
             let idx = state.items.findIndex((item) => item.productId === product.id)
             if (idx >= 0) {
                 state.items[idx].qty++;
@@ -25,33 +27,34 @@ export default {
         },
         removeFromCart(state, productId) {
             let idx = state.items.findIndex((item) => item.productId === productId)
+            state.qty -= state.items[idx].qty
+            state.total -= state.items[idx].price * state.items[idx].qty
+
             state.items.splice(idx, 1)
         },
-        updateCart(state, payload) {
-            let price = payload.price, qty = payload.qty
-            let isAdd = payload.isAdd
-            state.qty += isAdd ? qty : -qty;
-            state.total += isAdd ? qty * price : -qty * price
+        updateQuantity(state, payload) {
+            let idx = state.items.findIndex((item) => item.productId === payload.productId)
+            let diff = payload.quantity - state.items[idx].qty
+            state.qty += diff
+            state.total += diff * state.items[idx].price
+            state.items[idx].qty = payload.quantity
+
         }
     },
     actions: {
         addToCart(context, product) {
-            let tem = {
-                price: product.price,
-                qty: 1,
-                isAdd: true
-            }
-            context.commit('updateCart', tem)
             context.commit('addToCart', product)
         },
         removeFromCart(context, item) {
-            let tem = {
-                price: item.price,
-                qty: item.qty,
-                isAdd: false
-            }
-            context.commit('updateCart', tem)
             context.commit('removeFromCart', item.productId)
+        },
+        updateQuantity(context, payload) {
+            if (payload.quantity <= 0) {
+                context.commit('removeFromCart', payload.productId)
+                return
+            }
+
+            context.commit('updateQuantity', payload)
         }
     },
     getters: {
