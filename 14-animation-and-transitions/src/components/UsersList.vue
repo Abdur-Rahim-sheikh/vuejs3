@@ -12,7 +12,7 @@ export default {
                 alert('Please enter a valid username');
                 return;
             }
-            this.users.push(this.newUser);
+            this.users.unshift(this.newUser);
             this.newUser = '';
         },
         removeUser(user) {
@@ -30,7 +30,7 @@ export default {
 
 
     <div>
-        <input v-model.lazy="newUser" type="text">
+        <input v-model.lazy="newUser" type="text" @keyup.enter="addUser" />
         <button @click="addUser">Add User</button>
     </div>
 </template>
@@ -55,14 +55,22 @@ li {
     transform: translateY(-30px);
 }
 
-.user-enter-active,
-.user-leave-active {
+.user-enter-active {
     transition: all 1s ease-out;
+}
+
+.user-leave-active {
+    transition: all 1s ease-in;
+    position: absolute;
 }
 
 .user-enter-to,
 .user-leave-from {
     opacity: 1;
     transform: translateY(0);
+}
+
+.user-move {
+    transition: transform 1s ease;
 }
 </style>
