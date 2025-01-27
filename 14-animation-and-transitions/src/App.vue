@@ -1,10 +1,11 @@
 <script>
-import UsersList from './components/UsersList.vue';
+
+// import UsersList from './components/UsersList.vue';
 
 export default {
-  components: {
-    UsersList,
-  },
+  // components: {
+  //   UsersList,
+  // },
   data() {
     return {
       dialogIsVisible: false,
@@ -91,7 +92,12 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <RouterView v-slot="slotProps">
+    <transition name="fade-button" mode="out-in">
+      <component :is="slotProps.Component" />
+    </transition>
+  </RouterView>
+  <!-- <div class="container">
     <UsersList />
   </div>
   <div class="container">
@@ -119,7 +125,7 @@ export default {
   </base-modal>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
-  </div>
+  </div> -->
 </template>
 
 
@@ -197,6 +203,13 @@ button:active {
 .fade-button-leave-active {
   transition: opacity 0.5s ease-in;
 }
+
+.route-enter-active,
+.route-leave-active {
+  animation: slideScale 0.5s ease-in;
+}
+
+
 
 @keyframes slideScale {
   0% {
