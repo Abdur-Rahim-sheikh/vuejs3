@@ -1,5 +1,10 @@
 <script>
+import UsersList from './components/UsersList.vue';
+
 export default {
+  components: {
+    UsersList,
+  },
   data() {
     return {
       dialogIsVisible: false,
@@ -86,6 +91,9 @@ export default {
 </script>
 
 <template>
+  <div class="container">
+    <UsersList />
+  </div>
   <div class="container">
     <div class="block" :class="{ animate: blockAnimated }"></div>
     <button @click="animateBlock">Animate</button>
