@@ -1,5 +1,9 @@
 import { createStore } from 'vuex'
+import cart from './cart.js'
 const store = createStore({
+    modules: {
+        cart
+    },
     state() {
         return {
             isLoggedIn: false

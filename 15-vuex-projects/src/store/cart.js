@@ -8,31 +8,68 @@ export default {
     },
     mutations: {
         addToCart(state, product) {
-            let idx = state.items.findIndex((item) => item.id === product.id)
+            let idx = state.items.findIndex((item) => item.productId === product.id)
             if (idx >= 0) {
                 state.items[idx].qty++;
             }
             else {
-                let tem = { ...product };
-                tem.qty = 1;
+                let tem = {
+                    productId: product.id,
+                    image: product.image,
+                    title: product.title,
+                    price: product.price,
+                    qty: 1
+                };
                 state.items.push(tem);
             }
         },
-        removeFromCart(state, product_id) {
-            let idx = state.items.findIndex((item) => item.id === product_id)
-            state.items[idx].qty -= 1
-            if (state.items[idx].qty <= 0) {
-                state.items.splice(idx, 1)
-            }
+        removeFromCart(state, productId) {
+            let idx = state.items.findIndex((item) => item.productId === productId)
+            state.items.splice(idx, 1)
         },
-        updateCart(state, price) {
-            state.qty += price > 0 ? 1 : -1;
-            state.total += price
+        updateCart(state, payload) {
+            let price = payload.price, qty = payload.qty
+            let isAdd = payload.isAdd
+            state.qty += isAdd ? qty : -qty;
+            state.total += isAdd ? qty * price : -qty * price
         }
     },
     actions: {
         addToCart(context, product) {
-            context.commit('updateCart', product.price)
+            let tem = {
+                price: product.price,
+                qty: 1,
+                isAdd: true
+            }
+            context.commit('updateCart', tem)
+            context.commit('addToCart', product)
+        },
+        removeFromCart(context, item) {
+            let tem = {
+                price: item.price,
+                qty: item.qty,
+                isAdd: false
+            }
+            context.commit('updateCart', tem)
+            context.commit('removeFromCart', item.productId)
+        }
+    },
+    getters: {
+        items(state) {
+            return state.items
+        },
+        qty(state) {
+            return state.qty
+        },
+        total(state) {
+            return state.total
+        },
+        cart(_, getters) {
+            return {
+                items: getters.items,
+                qty: getters.qty,
+                total: getters.total
+            }
         }
     }
 }

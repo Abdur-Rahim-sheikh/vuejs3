@@ -1,42 +1,44 @@
+<script>
+import { mapActions } from 'vuex'
+export default {
+
+  props: ['item'],
+  computed: {
+    itemTotal() {
+      return (this.item.price * this.item.qty).toFixed(2);
+    },
+
+  },
+  methods: {
+    ...mapActions(['removeFromCart'])
+  }
+};
+</script>
+
 <template>
   <li>
     <div>
-      <img :src="image" :alt="title" />
+      <img :src="item.image" :alt="item.title" />
     </div>
     <div>
-      <h3>{{ title }}</h3>
+      <h3>{{ item.title }}</h3>
       <div class="item__data">
         <div>
           Price per Item:
-          <strong>${{ price }}</strong>
+          <strong>${{ item.price }}</strong>
         </div>
         <div>
           Quantity:
-          <strong>{{ qty }}</strong>
+          <strong>{{ item.qty }}</strong>
         </div>
       </div>
       <div class="item__total">Total: ${{ itemTotal }}</div>
-      <button @click="remove">Remove</button>
+      <button @click="removeFromCart(item)">Remove</button>
     </div>
   </li>
 </template>
 
-<script>
-export default {
-  inject: ['removeProductFromCart'],
-  props: ['prodId', 'title', 'image', 'price', 'qty'],
-  computed: {
-    itemTotal() {
-      return (this.price * this.qty).toFixed(2);
-    }
-  },
-  methods: {
-    remove() {
-      this.removeProductFromCart(this.prodId);
-    }
-  }
-};
-</script>
+
 
 <style scoped>
 li {

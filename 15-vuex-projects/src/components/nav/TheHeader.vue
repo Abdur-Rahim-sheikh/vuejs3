@@ -1,9 +1,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  inject: ['cart'],
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'cart'])
   },
   methods: {
     ...mapActions(['login', 'logout'])
