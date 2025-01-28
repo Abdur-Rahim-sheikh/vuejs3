@@ -9,15 +9,15 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/coaches' },
-        { path: '/coaches', component: CoachesList },
+        { path: '/coaches', name: "coaches", component: CoachesList },
         {
-            path: '/coaches/:id', component: CoachDetail, children: [
-                { path: 'contact', component: ContactCoach }
+            path: '/coaches/:id', name: "coach-detail", component: CoachDetail, children: [
+                { path: 'contact', name: 'coach-contact', component: ContactCoach }
             ]
         },
-        { path: '/register', component: CoachRegistration },
-        { path: '/requests', component: RequestsReceived },
-        { path: '/:notFound(.*)', component: NotFound },
+        { path: '/register', name: 'register-coach', component: CoachRegistration },
+        { path: '/requests', name: 'requests', component: RequestsReceived },
+        { path: '/:notFound(.*)', name: 'not-found', component: NotFound },
     ]
 });
 
