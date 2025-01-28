@@ -18,7 +18,9 @@ export default {
     <li>
         <h3>{{ fullName }}</h3>
         <h4>${{ coach.hourlyRate }}/hour</h4>
-        <div><span v-for="area in coach.areas" :key="area">{{ area }}</span></div>
+        <div>
+            <BaseBadge v-for="area in coach.areas" :key="area" :title="area" :type="area" />
+        </div>
         <div class="actions">
             <BaseButton link mode="outline" :to="{ name: 'coach-contact', params: { id: coach.id } }">
                 Contact
