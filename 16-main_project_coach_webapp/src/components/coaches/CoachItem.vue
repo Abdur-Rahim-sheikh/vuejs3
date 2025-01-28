@@ -20,9 +20,13 @@ export default {
         <h4>${{ coach.hourlyRate }}/hour</h4>
         <div><span v-for="area in coach.areas" :key="area">{{ area }}</span></div>
         <div class="actions">
-            <RouterLink :to="{ name: 'coach-contact', params: { id: coach.id } }">Contact</RouterLink>
+            <BaseButton link mode="outline" :to="{ name: 'coach-contact', params: { id: coach.id } }">
+                Contact
+            </BaseButton>
 
-            <RouterLink :to="{ name: 'coach-detail', params: { id: coach.id } }">View Details</RouterLink>
+            <BaseButton link :to="{ name: 'coach-detail', params: { id: coach.id } }">
+                View Details
+            </BaseButton>
         </div>
     </li>
 </template>
