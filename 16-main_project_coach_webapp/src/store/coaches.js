@@ -27,7 +27,6 @@ export default {
 
     },
     mutations: {
-        // check if the badge in thelist
         badgeExist(state, badge) {
             return state.badges.includes(badge.toLowerCase())
         }

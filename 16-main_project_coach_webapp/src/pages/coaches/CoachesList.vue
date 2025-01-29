@@ -1,19 +1,41 @@
 <script>
 import { mapGetters } from 'vuex';
 import CoachItem from '../../components/coaches/CoachItem.vue';
+import CoachFilter from '../../components/coaches/CoachFilter.vue';
 export default {
     components: {
         CoachItem,
+        CoachFilter,
+    },
+    data() {
+        return {
+            activeFilters: null,
+        }
     },
     computed: {
-        ...mapGetters('coaches', ['coaches', 'hasCoaches']),
+        ...mapGetters('coaches', ['coaches', 'hasCoaches', 'availableBadges']),
+        filteredCoaches() {
+            return this.coaches.filter(coach => {
+                return coach.areas.some(area => this.activeFilters[area]);
+            })
+        },
     },
+    methods: {
+        filterBadges(selectedBadges) {
+            this.activeFilters = selectedBadges;
+        },
+    },
+    created() {
+        this.activeFilters = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
+    }
 
 }
 </script>
 
 <template>
-    <section>FILTER</section>
+    <section>
+        <CoachFilter @updateFilter="filterBadges" />
+    </section>
     <section>
         <BaseCard>
             <div class="controls">
@@ -21,7 +43,7 @@ export default {
                 <BaseButton to="/register" link>Register as Coach</BaseButton>
             </div>
             <ul v-if="hasCoaches">
-                <CoachItem v-for="coach in coaches" :key="coach.id" :coach="coach" />
+                <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
             </ul>
             <p v-else>No coaches found</p>
         </BaseCard>
