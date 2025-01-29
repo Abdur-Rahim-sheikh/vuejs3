@@ -26,6 +26,17 @@ export default {
         }
 
     },
+    mutations: {
+        // check if the badge in thelist
+        badgeExist(state, badge) {
+            return state.badges.includes(badge.toLowerCase())
+        }
+    },
+    actions: {
+        badgeExist(context, badge) {
+            return context.commit('badgeExist', badge)
+        }
+    },
     getters: {
         coaches(state) {
             return state.coaches

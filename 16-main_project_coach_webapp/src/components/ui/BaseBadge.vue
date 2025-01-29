@@ -1,5 +1,5 @@
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     props: {
@@ -13,15 +13,18 @@ export default {
         text() {
             return this.title.toUpperCase();
         },
-        ...mapGetters('coaches', ['availableBadges']),
     },
+    methods: {
+        ...mapActions('coaches', ['badgeExist']),
 
+
+    },
     created() {
-        if (!this.availableBadges.includes(this.type)) {
-            console.warn(`Invalid type: ${this.type}. It must be one of: ${this.availableBadges.join(', ')}`);
+        if (!this.badgeExist(this.type)) {
+            console.warn(`Invalid type: ${this.type}`);
         }
     }
-}
+};
 </script>
 
 <template>
