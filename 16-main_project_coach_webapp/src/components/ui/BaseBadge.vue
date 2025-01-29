@@ -1,20 +1,26 @@
 <script>
-const expected_type = ['frontend', 'backend', 'career'];
+import { mapGetters } from 'vuex';
+
 export default {
     props: {
         type: {
             type: String,
             required: true,
-            validator: value => expected_type.includes(value)
         },
         title: String
     },
     computed: {
         text() {
             return this.title.toUpperCase();
+        },
+        ...mapGetters('coaches', ['availableBadges']),
+    },
+
+    created() {
+        if (!this.availableBadges.includes(this.type)) {
+            console.warn(`Invalid type: ${this.type}. It must be one of: ${this.availableBadges.join(', ')}`);
         }
     }
-
 }
 </script>
 
