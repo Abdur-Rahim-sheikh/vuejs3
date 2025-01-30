@@ -9,6 +9,7 @@ export default {
     },
     data() {
         return {
+            isLoading: false,
             activeFilters: null,
         }
     },
@@ -27,7 +28,9 @@ export default {
         ...mapActions('coaches', ['loadCoaches']),
     },
     created() {
-        this.loadCoaches();
+        isLoading = true;
+        await this.loadCoaches();
+        isLoading = false;
         this.activeFilters = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
     }
 
@@ -44,6 +47,7 @@ export default {
                 <BaseButton mode="outline" @click="loadCoaches">Refresh</BaseButton>
                 <BaseButton v-if="!isCoach" to="/register" link>Register as Coach</BaseButton>
             </div>
+            <div v-if="isLoading"></div>
             <ul v-if="hasCoaches">
                 <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
             </ul>
