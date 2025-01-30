@@ -29,11 +29,25 @@ export default {
     mutations: {
         badgeExist(state, badge) {
             return state.badges.includes(badge.toLowerCase())
+        },
+        registerCoach(state, payload) {
+            state.coaches.push(payload)
         }
     },
     actions: {
         badgeExist(context, badge) {
             return context.commit('badgeExist', badge)
+        },
+        registerCoach(context, payload) {
+            const coachData = {
+                id: context.rootGetters.userId, // context.rootGetters.userId,
+                firstName: payload.firstname,
+                lastName: payload.lastname,
+                areas: payload.areas,
+                description: payload.description,
+                hourlyRate: payload.rate
+            }
+            context.commit('registerCoach', coachData)
         }
     },
     getters: {
@@ -45,6 +59,11 @@ export default {
         },
         availableBadges(state) {
             return state.badges
+        },
+        isCoach(_, getters, _2, rootGetters) {
+            const coaches = getters.coaches
+            const userId = rootGetters.userId
+            return coaches.some(coach => coach.id === userId)
         }
     }
 }

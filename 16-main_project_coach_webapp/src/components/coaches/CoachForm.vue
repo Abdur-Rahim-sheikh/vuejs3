@@ -1,5 +1,6 @@
 <script>
 export default {
+    emits: ['onSave'],
     data() {
         return {
             firstname: '',
@@ -18,7 +19,7 @@ export default {
                 rate: this.rate,
                 areas: this.areas
             }
-            console.log(coachData);
+            this.$emit('onSave', coachData);
         }
     }
 }

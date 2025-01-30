@@ -13,7 +13,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('coaches', ['coaches', 'hasCoaches', 'availableBadges']),
+        ...mapGetters('coaches', ['coaches', 'hasCoaches', 'availableBadges', 'isCoach']),
         filteredCoaches() {
             return this.coaches.filter(coach => {
                 return coach.areas.some(area => this.activeFilters[area]);
@@ -40,7 +40,7 @@ export default {
         <BaseCard>
             <div class="controls">
                 <BaseButton mode="outline">Refresh</BaseButton>
-                <BaseButton to="/register" link>Register as Coach</BaseButton>
+                <BaseButton v-if="!isCoach" to="/register" link>Register as Coach</BaseButton>
             </div>
             <ul v-if="hasCoaches">
                 <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
