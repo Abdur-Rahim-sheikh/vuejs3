@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex';
 export default {
     data() {
         return {
@@ -14,8 +15,14 @@ export default {
                 this.formIsValid = false;
                 return;
             }
-            console.log('Sending message...');
-        }
+            this.addRequest({
+                email: this.email,
+                message: this.message,
+                coachId: this.$route.params.id
+            });
+            this.$router.replace({ name: 'coaches' });
+        },
+        ...mapActions('requests', ['addRequest'])
     }
 }
 </script>
