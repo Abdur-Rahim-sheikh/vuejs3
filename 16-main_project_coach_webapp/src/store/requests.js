@@ -21,4 +21,12 @@ export default {
             context.commit('addRequest', data);
         }
     },
+    getters: {
+        requests(state) {
+            return state.requests;
+        },
+        hasRequests(state) {
+            return state.requests.length > 0;
+        }
+    }
 }
