@@ -1,5 +1,5 @@
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from '../../components/coaches/CoachFilter.vue';
 export default {
@@ -24,8 +24,10 @@ export default {
         filterBadges(selectedBadges) {
             this.activeFilters = selectedBadges;
         },
+        ...mapActions('coaches', ['loadCoaches']),
     },
     created() {
+        this.loadCoaches();
         this.activeFilters = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
     }
 
@@ -39,7 +41,7 @@ export default {
     <section>
         <BaseCard>
             <div class="controls">
-                <BaseButton mode="outline">Refresh</BaseButton>
+                <BaseButton mode="outline" @click="loadCoaches">Refresh</BaseButton>
                 <BaseButton v-if="!isCoach" to="/register" link>Register as Coach</BaseButton>
             </div>
             <ul v-if="hasCoaches">

@@ -33,6 +33,9 @@ export default {
         },
         registerCoach(state, payload) {
             state.coaches.push(payload)
+        },
+        setCoaches(state, payload) {
+            state.coaches = payload
         }
     },
     actions: {
@@ -63,6 +66,27 @@ export default {
                 ...coachData,
                 id: userId
             })
+        },
+        async loadCoaches(context) {
+            const response = await fetch(`${firebaseUrl}/coaches.json`)
+            const responseData = await response.json()
+            if (!response.ok) {
+                const error = new Error(responseData.message || 'Failed to fetch.')
+                throw error
+            }
+            const coaches = []
+            for (const key in responseData) {
+                const coach = {
+                    id: key,
+                    firstName: responseData[key].firstName,
+                    lastName: responseData[key].lastName,
+                    areas: responseData[key].areas,
+                    description: responseData[key].description,
+                    hourlyRate: responseData[key].hourlyRate
+                }
+                coaches.push(coach)
+            }
+            context.commit('setCoaches', coaches)
         }
     },
     getters: {
