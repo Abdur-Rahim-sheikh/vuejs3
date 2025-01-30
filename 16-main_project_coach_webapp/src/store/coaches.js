@@ -1,3 +1,4 @@
+const firebaseUrl = process.env.VUE_APP_FIREBASE_URL
 export default {
     namespaced: true,
     state() {
@@ -38,16 +39,30 @@ export default {
         badgeExist(context, badge) {
             return context.commit('badgeExist', badge)
         },
-        registerCoach(context, payload) {
+        async registerCoach(context, payload) {
+            const userId = context.rootGetters.userId
             const coachData = {
-                id: context.rootGetters.userId, // context.rootGetters.userId,
                 firstName: payload.firstname,
                 lastName: payload.lastname,
                 areas: payload.areas,
                 description: payload.description,
                 hourlyRate: payload.rate
             }
-            context.commit('registerCoach', coachData)
+            let url = `${firebaseUrl}/coaches/${userId}.json`
+            console.log(url)
+            const response = await fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify(coachData)
+            });
+            const responseData = await response.json();
+            if (!response.ok) {
+                const error = new Error(responseData.message || 'Failed to register.')
+                throw error
+            }
+            context.commit('registerCoach', {
+                ...coachData,
+                id: userId
+            })
         }
     },
     getters: {
