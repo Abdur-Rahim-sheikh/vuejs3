@@ -26,10 +26,10 @@ export default {
         filterBadges(selectedBadges) {
             this.activeFilters = selectedBadges;
         },
-        async reloadCoaches() {
+        async reloadCoaches(forceRefresh = false) {
             this.isLoading = true;
             try {
-                await this.loadCoaches();
+                await this.loadCoaches(forceRefresh);
             } catch (error) {
                 this.error = error.message || 'Failed to load coaches';
             }
@@ -54,7 +54,7 @@ export default {
     <section>
         <BaseCard>
             <div class="controls">
-                <BaseButton mode="outline" @click="reloadCoaches">Refresh</BaseButton>
+                <BaseButton mode="outline" @click="reloadCoaches(foreRefresh = true)">Refresh</BaseButton>
                 <BaseButton v-if="!isCoach && !isLoading" to="/register" link>Register as Coach</BaseButton>
             </div>
             <div v-if="isLoading">

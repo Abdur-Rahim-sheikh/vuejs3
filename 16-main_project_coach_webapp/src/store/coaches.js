@@ -2,7 +2,9 @@ const firebaseUrl = process.env.VUE_APP_FIREBASE_URL
 export default {
     namespaced: true,
     state() {
+
         return {
+            lastFetch: null,
             coaches: [
                 {
                     id: 'c1',
@@ -36,6 +38,9 @@ export default {
         },
         setCoaches(state, payload) {
             state.coaches = payload
+        },
+        setFetchTimestamp(state) {
+            state.lastFetch = new Date().getTime()
         }
     },
     actions: {
@@ -67,7 +72,10 @@ export default {
                 id: userId
             })
         },
-        async loadCoaches(context) {
+        async loadCoaches(context, forceRefresh = false) {
+            if (!forceRefresh && !context.getters.shouldUpdate) {
+                return
+            }
             const response = await fetch(`${firebaseUrl}/coaches.json`)
             const responseData = await response.json()
             if (!response.ok) {
@@ -87,6 +95,7 @@ export default {
                 coaches.push(coach)
             }
             context.commit('setCoaches', coaches)
+            context.commit('setFetchTimestamp')
         }
     },
     getters: {
@@ -98,6 +107,14 @@ export default {
         },
         availableBadges(state) {
             return state.badges
+        },
+        shouldUpdate(state) {
+            const lastFetch = state.lastFetch
+            if (!lastFetch) {
+                return true
+            }
+            const currentTimestamp = new Date().getTime()
+            return (currentTimestamp - lastFetch) / 1000 > 60
         },
         isCoach(_, getters, _2, rootGetters) {
             const coaches = getters.coaches
