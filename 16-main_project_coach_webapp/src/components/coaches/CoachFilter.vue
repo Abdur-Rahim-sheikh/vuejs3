@@ -20,6 +20,7 @@ export default {
     },
     created() {
         this.chosenBadges = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
+        this.$emit('updateFilter', this.chosenBadges);
     }
 }
 </script>

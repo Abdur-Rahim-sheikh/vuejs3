@@ -16,6 +16,7 @@ export default {
     computed: {
         ...mapGetters('coaches', ['coaches', 'hasCoaches', 'availableBadges', 'isCoach']),
         filteredCoaches() {
+            console.log('active filters', this.activeFilters);
             return this.coaches.filter(coach => {
                 return coach.areas.some(area => this.activeFilters[area]);
             })
@@ -28,6 +29,7 @@ export default {
         ...mapActions('coaches', ['loadCoaches']),
     },
     async created() {
+
         this.isLoading = true;
         await this.loadCoaches();
         this.isLoading = false;
