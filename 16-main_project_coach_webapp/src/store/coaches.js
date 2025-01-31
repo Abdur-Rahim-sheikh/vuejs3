@@ -35,7 +35,6 @@ export default {
             state.coaches.push(payload)
         },
         setCoaches(state, payload) {
-            console.log(payload)
             state.coaches = payload
         }
     },
@@ -53,7 +52,7 @@ export default {
                 hourlyRate: payload.rate
             }
             let url = `${firebaseUrl}/coaches/${userId}.json`
-            console.log(url)
+
             const response = await fetch(url, {
                 method: 'PUT',
                 body: JSON.stringify(coachData)
