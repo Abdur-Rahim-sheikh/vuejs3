@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             isLoading: false,
+            error: null,
             activeFilters: null,
         }
     },
@@ -25,13 +26,21 @@ export default {
         filterBadges(selectedBadges) {
             this.activeFilters = selectedBadges;
         },
+        async reloadCoaches() {
+            this.isLoading = true;
+            try {
+                await this.loadCoaches();
+            } catch (error) {
+                this.error = error.message || 'Failed to load coaches';
+            }
+
+            this.isLoading = false;
+
+        },
         ...mapActions('coaches', ['loadCoaches']),
     },
     async created() {
-
-        this.isLoading = true;
-        await this.loadCoaches();
-        this.isLoading = false;
+        await this.reloadCoaches();
         this.activeFilters = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
     }
 
@@ -45,7 +54,7 @@ export default {
     <section>
         <BaseCard>
             <div class="controls">
-                <BaseButton mode="outline" @click="loadCoaches">Refresh</BaseButton>
+                <BaseButton mode="outline" @click="reloadCoaches">Refresh</BaseButton>
                 <BaseButton v-if="!isCoach && !isLoading" to="/register" link>Register as Coach</BaseButton>
             </div>
             <div v-if="isLoading">
@@ -57,6 +66,9 @@ export default {
             <p v-else>No coaches found</p>
         </BaseCard>
     </section>
+    <BaseDialog :show="!!error" @close="error = null" title="An error occurred">
+        <p>{{ error }}</p>
+    </BaseDialog>
 </template>
 
 <style scoped>
