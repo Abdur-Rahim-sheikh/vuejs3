@@ -30,24 +30,26 @@ export default {
 </script>
 
 <template>
-    <section>
-        <BaseCard>
-            <header>
-                <h2>Requests Received</h2>
-            </header>
-        </BaseCard>
-        <ul v-if="isLoading">
-            <BaseSpinner />
-        </ul>
-        <ul v-else-if="hasRequests">
-            <RequestItem v-for="request in requests" :key="request.id" :email="request.userEmail"
-                :message="request.userMessage" />
-        </ul>
-        <h3 v-else>You haven't received any requests yet!</h3>
-    </section>
-    <BaseDialog :show="!!error" @close="error = null">
-        <p>{{ error }}</p>
-    </BaseDialog>
+    <div>
+        <section>
+            <BaseCard>
+                <header>
+                    <h2>Requests Received</h2>
+                </header>
+            </BaseCard>
+            <ul v-if="isLoading">
+                <BaseSpinner />
+            </ul>
+            <ul v-else-if="hasRequests">
+                <RequestItem v-for="request in requests" :key="request.id" :email="request.userEmail"
+                    :message="request.userMessage" />
+            </ul>
+            <h3 v-else>You haven't received any requests yet!</h3>
+        </section>
+        <BaseDialog :show="!!error" @close="error = null">
+            <p>{{ error }}</p>
+        </BaseDialog>
+    </div>
 </template>
 
 <style scoped>

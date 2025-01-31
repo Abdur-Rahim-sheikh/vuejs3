@@ -48,27 +48,29 @@ export default {
 </script>
 
 <template>
-    <section>
-        <CoachFilter @updateFilter="filterBadges" />
-    </section>
-    <section>
-        <BaseCard>
-            <div class="controls">
-                <BaseButton mode="outline" @click="reloadCoaches(foreRefresh = true)">Refresh</BaseButton>
-                <BaseButton v-if="!isCoach && !isLoading" to="/register" link>Register as Coach</BaseButton>
-            </div>
-            <div v-if="isLoading">
-                <BaseSpinner />
-            </div>
-            <ul v-else-if="hasCoaches">
-                <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
-            </ul>
-            <p v-else>No coaches found</p>
-        </BaseCard>
-    </section>
-    <BaseDialog :show="!!error" @close="error = null" title="An error occurred">
-        <p>{{ error }}</p>
-    </BaseDialog>
+    <div>
+        <section>
+            <CoachFilter @updateFilter="filterBadges" />
+        </section>
+        <section>
+            <BaseCard>
+                <div class="controls">
+                    <BaseButton mode="outline" @click="reloadCoaches(foreRefresh = true)">Refresh</BaseButton>
+                    <BaseButton v-if="!isCoach && !isLoading" to="/register" link>Register as Coach</BaseButton>
+                </div>
+                <div v-if="isLoading">
+                    <BaseSpinner />
+                </div>
+                <ul v-else-if="hasCoaches">
+                    <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
+                </ul>
+                <p v-else>No coaches found</p>
+            </BaseCard>
+        </section>
+        <BaseDialog :show="!!error" @close="error = null" title="An error occurred">
+            <p>{{ error }}</p>
+        </BaseDialog>
+    </div>
 </template>
 
 <style scoped>
