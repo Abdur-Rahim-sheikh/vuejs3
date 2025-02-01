@@ -16,11 +16,15 @@ export default {
     },
     computed: {
         ...mapGetters('coaches', ['coaches', 'hasCoaches', 'availableBadges', 'isCoach']),
+        ...mapGetters(['isAuthenticated']),
         filteredCoaches() {
             return this.coaches.filter(coach => {
                 return coach.areas.some(area => this.activeFilters[area]);
             })
         },
+        canRegister() {
+            return this.isAuthenticated && !this.isCoach && !this.isLoading;
+        }
     },
     methods: {
         filterBadges(selectedBadges) {
@@ -42,6 +46,7 @@ export default {
     async created() {
         await this.reloadCoaches();
         this.activeFilters = Object.fromEntries(this.availableBadges.map(badge => [badge, true]));
+        console.log('isAuthenticated', this.isAuthenticated);
     }
 
 }
@@ -56,7 +61,8 @@ export default {
             <BaseCard>
                 <div class="controls">
                     <BaseButton mode="outline" @click="reloadCoaches(foreRefresh = true)">Refresh</BaseButton>
-                    <BaseButton v-if="!isCoach && !isLoading" to="/register" link>Register as Coach</BaseButton>
+                    <BaseButton v-if="!isAuthenticated" link :to="{ name: 'auth' }">Login</BaseButton>
+                    <BaseButton v-if="canRegister" to="/register" link>Register as Coach</BaseButton>
                 </div>
                 <div v-if="isLoading">
                     <BaseSpinner />
