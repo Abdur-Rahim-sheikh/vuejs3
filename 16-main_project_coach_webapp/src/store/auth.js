@@ -1,4 +1,9 @@
-const firebaseSignup = process.env.VUE_APP_FIREBASE_SIGNUP_AUTH
+const firebaseAuth = process.env.VUE_APP_FIREBASE_AUTH
+const firebaseKey = process.env.VUE_APP_FIREBASE_AUTH
+
+const getUrl = (authType) => {
+    return `${firebaseAuth}:${authType}?key${firebaseKey}`
+}
 export default {
     state() {
         return {
@@ -20,9 +25,12 @@ export default {
         }
     },
     actions: {
-        login() { },
+        login() {
+            let url = getUrl('login')
+            console.log(url)
+        },
         async signup(context, payload) {
-            const response = await fetch(firebaseSignup, {
+            const response = await fetch(getUrl('signup'), {
                 method: 'POST',
                 body: JSON.stringify({
                     email: payload.email,
