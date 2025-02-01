@@ -30,13 +30,14 @@ export default {
         this.formIsValid = false;
         return
       }
+      const payload = {
+        email: this.email,
+        password: this.password,
+        authType: this.mode
+      }
       this.isLoading = true;
       try {
-        if (this.mode === 'login') {
-          await this.login({ email: this.email, password: this.password });
-        } else {
-          await this.signup({ email: this.email, password: this.password });
-        }
+        await this.auth(payload);
       } catch (err) {
         this.error = err.message || 'Something went wrong!';
       }
@@ -46,7 +47,7 @@ export default {
       this.mode = this.mode == 'login' ? 'signup' : 'login';
 
     },
-    ...mapActions(['login', 'signup'])
+    ...mapActions(['auth'])
   }
 }
 </script>

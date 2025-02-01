@@ -1,8 +1,9 @@
 const firebaseAuth = process.env.VUE_APP_FIREBASE_AUTH
-const firebaseKey = process.env.VUE_APP_FIREBASE_AUTH
+const firebaseKey = process.env.VUE_APP_FIREBASE_KEY
 
 const getUrl = (authType) => {
-    return `${firebaseAuth}:${authType}?key${firebaseKey}`
+    let type = authType === 'login' ? 'signInWithPassword' : 'signUp'
+    return `${firebaseAuth}:${type}?key=${firebaseKey}`
 }
 export default {
     state() {
@@ -25,13 +26,22 @@ export default {
         }
     },
     actions: {
-        login() {
-            let url = getUrl('login')
-            console.log(url)
-        },
-        async signup(context, payload) {
-            const response = await fetch(getUrl('signup'), {
+        async auth(context, payload) {
+            let url = null;
+            payload.authType = payload.authType.toLowerCase()
+            if (payload.authType === 'login') {
+                url = getUrl('login')
+            }
+            else if (payload.authType === 'signup') {
+                url = getUrl('signup')
+            } else {
+                throw new Error('Invalid auth type: either login or signup')
+            }
+            const response = await fetch(url, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     email: payload.email,
                     password: payload.password,
@@ -41,7 +51,7 @@ export default {
             const responseData = await response.json();
             if (!response.ok) {
                 console.log(responseData)
-                const error = new Error(responseData.message || 'Failed to authenticate. Check your authentication data.')
+                const error = new Error(responseData.error.message || 'Failed to authenticate. Check your authentication data.')
                 throw error
             }
             console.log(responseData)
