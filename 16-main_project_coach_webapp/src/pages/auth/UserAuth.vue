@@ -6,7 +6,9 @@ export default {
       email: '',
       password: '',
       formIsValid: true,
-      mode: 'login'
+      mode: 'login',
+      isLoading: false,
+      error: null
     }
 
   },
@@ -19,7 +21,7 @@ export default {
     }
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       if (
         this.email === '' ||
@@ -28,11 +30,17 @@ export default {
         this.formIsValid = false;
         return
       }
-      if (this.mode === 'login') {
-        this.login({ email: this.email, password: this.password });
-      } else {
-        this.signup({ email: this.email, password: this.password });
+      this.isLoading = true;
+      try {
+        if (this.mode === 'login') {
+          await this.login({ email: this.email, password: this.password });
+        } else {
+          await this.signup({ email: this.email, password: this.password });
+        }
+      } catch (err) {
+        this.error = err.message || 'Something went wrong!';
       }
+      this.isLoading = false;
     },
     switchAuthMode() {
       this.mode = this.mode == 'login' ? 'signup' : 'login';
@@ -44,6 +52,7 @@ export default {
 </script>
 
 <template>
+
   <BaseCard>
     <form @submit.prevent="submitForm">
 
@@ -60,6 +69,10 @@ export default {
       <BaseButton mode="flat" @click.prevent="switchAuthMode">{{ switchModeButtonCaption }}</BaseButton>
 
     </form>
+    <BaseDialog :show="!!error" @close="error = null">{{ error }}</BaseDialog>
+    <BaseDialog :show="isLoading" fixed title="Authenticating...">
+      <BaseSpinner />
+    </BaseDialog>
   </BaseCard>
 </template>
 
