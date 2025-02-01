@@ -49,6 +49,7 @@ export default {
         },
         async registerCoach(context, payload) {
             const userId = context.rootGetters.userId
+            let token = context.rootGetters.userToken
             const coachData = {
                 firstName: payload.firstname,
                 lastName: payload.lastname,
@@ -56,7 +57,8 @@ export default {
                 description: payload.description,
                 hourlyRate: payload.rate
             }
-            let url = `${firebaseUrl}/coaches/${userId}.json`
+
+            let url = `${firebaseUrl}/coaches/${userId}.json?auth=${token}`
 
             const response = await fetch(url, {
                 method: 'PUT',

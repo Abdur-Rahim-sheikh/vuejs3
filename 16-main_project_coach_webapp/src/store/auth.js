@@ -16,6 +16,9 @@ export default {
     getters: {
         userId(state) {
             return state.userId
+        },
+        userToken(state) {
+            return state.token
         }
     },
     mutations: {
@@ -54,7 +57,6 @@ export default {
                 const error = new Error(responseData.error.message || 'Failed to authenticate. Check your authentication data.')
                 throw error
             }
-            console.log(responseData)
             context.commit('setUser', {
                 userId: responseData.localId,
                 token: responseData.idToken,

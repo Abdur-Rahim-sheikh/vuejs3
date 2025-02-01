@@ -33,7 +33,8 @@ export default {
         },
         async loadRequests(context) {
             const coachId = context.rootGetters.userId;
-            let url = `${firebaseUrl}/requests/${coachId}.json`;
+            const token = context.rootGetters.userToken;
+            let url = `${firebaseUrl}/requests/${coachId}.json?auth=${token}`;
             let response = await fetch(url);
             let responseData = await response.json();
             if (!response.ok) {
