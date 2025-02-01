@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -27,12 +28,17 @@ export default {
         this.formIsValid = false;
         return
       }
-      // send http requests
+      if (this.mode === 'login') {
+        this.login({ email: this.email, password: this.password });
+      } else {
+        this.signup({ email: this.email, password: this.password });
+      }
     },
     switchAuthMode() {
       this.mode = this.mode == 'login' ? 'signup' : 'login';
 
-    }
+    },
+    ...mapActions(['login', 'signup'])
   }
 }
 </script>
