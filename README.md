@@ -181,3 +181,27 @@ person.name = "Abir Hasan";
 ```
 
 See the difference in the syntax. We have to use `value` to access the value of the `ref` object. But in `reactive` we can access the value directly. So, reactive let you work as simple javascript object yet it is reactive.
+
+In addition, either your data is reactive/ref or not. You can verify it by using `isRef` or `isReactive` method.
+
+```javascript
+import { isRef, isReactive } from "vue";
+const person = { name: "Abir", age: 25 };
+const personRef = ref(person);
+console.log(isRef(personRef)); // true
+console.log(isRef(person.value.name)); // false
+console.log(isReactive(personRef)); // false
+
+const personRec = reactive(person);
+console.log(isReactive(personRec)); // true
+console.log(isReactive(personRec.name)); // false
+```
+
+Also, we can make each property of an object ref or reactive using `toRef` and `toRefs` method.
+
+```javascript
+import { toRef, toRefs } from "vue";
+const person = reactive({ name: "Abir", age: 25 });
+const nameRef = toRef(person, "name");
+const personRefs = toRefs(person);
+```
