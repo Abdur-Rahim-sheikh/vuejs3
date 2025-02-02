@@ -1,9 +1,19 @@
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     components: {
         TheHeader
+    },
+    computed: {
+        ...mapGetters(['autoLoggedOut'])
+    },
+    watch: {
+        autoLoggedOut(currentValue) {
+            if (currentValue) {
+                this.$router.push({ name: 'auth' });
+            }
+        }
     },
     methods: {
         ...mapActions(['tryAutoLogin'])
