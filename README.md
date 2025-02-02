@@ -154,3 +154,30 @@ We can achieve both variable after `npm install` one everywhere and the other to
 ## routers redirect vs alias
 
 redirect is used to redirect the user to a different route literally changes the url in the browser but alias is used to show the same component on different urls without changing the url in the browser.
+
+## router guards
+
+We can use router guards to protect the routes from unauthorized access. There are 3 types of guards
+
+1. Global guards
+2. Per route guards
+3. In component guards
+
+## ref vs reactive
+
+We generally use them in vue3 composable. `ref` is good to go with primitive data types like string, number, boolean. But for complex data types like object, array we should use `reactive`. Because `ref` does not track the changes in the object or array. But `reactive` does.
+
+modifying them have different syntax
+
+```javascript
+// ref
+const person = { name: "Abir", age: 25 };
+const personRef = ref(person);
+personRef.value.name = "Abir Hasan";
+
+// reactive
+const person = reactive({ name: "Abir", age: 25 });
+person.name = "Abir Hasan";
+```
+
+See the difference in the syntax. We have to use `value` to access the value of the `ref` object. But in `reactive` we can access the value directly. So, reactive let you work as simple javascript object yet it is reactive.
