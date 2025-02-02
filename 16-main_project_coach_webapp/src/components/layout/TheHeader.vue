@@ -1,3 +1,15 @@
+<script>
+import { mapGetters, mapActions } from 'vuex';
+export default {
+    computed: {
+        ...mapGetters(['isAuthenticated'])
+    },
+    methods: {
+        ...mapActions(['logout'])
+    }
+}
+</script>
+
 <template>
     <header>
         <h1>
@@ -9,7 +21,11 @@
 
             </li>
             <li>
-                <RouterLink to='/requests'>Requests</RouterLink>
+                <RouterLink v-if="isAuthenticated" to='/requests'>Requests</RouterLink>
+                <RouterLink v-else to='/auth'>Login</RouterLink>
+            </li>
+            <li v-if="isAuthenticated">
+                <BaseButton @click="logout">Logout</BaseButton>
             </li>
         </ul>
     </header>

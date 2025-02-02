@@ -38,10 +38,14 @@ export default {
       this.isLoading = true;
       try {
         await this.auth(payload);
+        const redirect = this.$route.query.redirect || 'requests';
+        console.log('redirect', redirect);
+        this.$router.replace({ name: redirect });
       } catch (err) {
         this.error = err.message || 'Something went wrong!';
       }
       this.isLoading = false;
+
     },
     switchAuthMode() {
       this.mode = this.mode == 'login' ? 'signup' : 'login';

@@ -61,7 +61,11 @@ export default {
             <BaseCard>
                 <div class="controls">
                     <BaseButton mode="outline" @click="reloadCoaches(foreRefresh = true)">Refresh</BaseButton>
-                    <BaseButton v-if="!isAuthenticated" link :to="{ name: 'auth' }">Login</BaseButton>
+                    <BaseButton v-if="!isAuthenticated" link
+                        :to="{ name: 'auth', query: { redirect: 'register-coach' } }">
+                        Login
+                        to Register as a Coach
+                    </BaseButton>
                     <BaseButton v-if="canRegister" to="/register" link>Register as Coach</BaseButton>
                 </div>
                 <div v-if="isLoading">
