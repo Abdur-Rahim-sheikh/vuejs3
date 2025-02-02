@@ -1,22 +1,19 @@
-<template>
-  <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
-  </section>
-</template>
-
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 export default {
   setup() {
-    // const userName = ref('Maximilian');
-    // const age = ref(30);
-    const user = ref({ name: 'Maximilian', age: 30 });
-    setTimeout(() => {
-      user.value.name = 'Abdur Rahim Sheikh';
-      user.value.age = 25;
-    }, 2000);
-    return { user };
+    const age = ref(30);
+    const firstName = ref('');
+    const lastName = ref('');
+
+    function increaseAge() {
+      age.value = age.value + 1;
+    }
+
+    const username = computed(() => {
+      return `${firstName.value} ${lastName.value}`;
+    });
+    return { username, age, increaseAge, firstName, lastName };
   },
   // data() {
   //   return {
@@ -25,6 +22,21 @@ export default {
   // },
 };
 </script>
+
+<template>
+  <section class="container">
+    <h2>{{ username }}</h2>
+    <h3>{{ age }}</h3>
+    <button @click="increaseAge">Change Age</button>
+
+    <div>
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" v-model="lastName" />
+    </div>
+  </section>
+</template>
+
+
 
 <style>
 * {
