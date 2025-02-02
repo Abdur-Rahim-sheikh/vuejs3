@@ -1,8 +1,15 @@
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
+import { mapActions } from 'vuex';
 export default {
     components: {
         TheHeader
+    },
+    methods: {
+        ...mapActions(['tryAutoLogin'])
+    },
+    created() {
+        this.tryAutoLogin();
     }
 }
 

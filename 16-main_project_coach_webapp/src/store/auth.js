@@ -60,6 +60,10 @@ export default {
                 const error = new Error(responseData.error.message || 'Failed to authenticate. Check your authentication data.')
                 throw error
             }
+
+            localStorage.setItem('userId', responseData.localId);
+            localStorage.setItem('token', responseData.idToken);
+
             context.commit('setUser', {
                 userId: responseData.localId,
                 token: responseData.idToken,
@@ -72,6 +76,18 @@ export default {
                 token: null,
                 tokenExpiration: null
             })
+        },
+        tryAutoLogin(context) {
+
+            const userId = localStorage.getItem('userId')
+            const token = localStorage.getItem('token')
+            if (userId && token) {
+                context.commit('setUser', {
+                    userId: userId,
+                    token: token,
+                    tokenExpiration: null
+                })
+            }
         }
     }
 }
