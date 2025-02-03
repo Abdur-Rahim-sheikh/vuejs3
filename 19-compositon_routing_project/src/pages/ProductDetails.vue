@@ -1,25 +1,30 @@
-<template>
-  <section>
-    <h2>{{ title }}</h2>
-    <h3>${{ price}}</h3>
-    <p>{{ description}}</p>
-  </section>
-</template>
-
 <script>
-import { ref } from 'vue';
-
+import { inject, computed } from 'vue';
 export default {
-  setup() {
-    const title = ref('');
-    const price = ref(null);
-    const description = ref('');
+  props: ['pid'],
+  setup(props) {
+    const products = inject('products');
+    console.log(props.pid);
+    const selectedProduct = computed(() =>
+      products.value.find((product) => product.id === props.pid
+      ));
 
+    const title = computed(() => selectedProduct.value.title);
+    const price = computed(() => selectedProduct.value.price);
+    const description = computed(() => selectedProduct.value.description);
     return { title, price, description };
   },
 };
 </script>
 
+<template>
+  <section>
+    <h2>{{ title }}</h2>
+    <h3>${{ price }}</h3>
+    <p>{{ description }}</p>
+    <RouterLink :to="{ name: 'product-details', params: { pid: 'p2' } }"> product 2</RouterLink>
+  </section>
+</template>
 
 <style scoped>
 section {
