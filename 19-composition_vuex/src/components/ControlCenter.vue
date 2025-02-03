@@ -1,13 +1,15 @@
 <template>
-  <button @click="inc">Increment</button>
+  <button @click="increment">Increment</button>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   setup() {
-    function inc() {}
+    const actions = mapActions(['increment']);
 
-    return { inc };
+    return { ...actions };
   },
 };
 </script>
