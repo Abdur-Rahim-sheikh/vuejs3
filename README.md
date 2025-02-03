@@ -205,3 +205,13 @@ const person = reactive({ name: "Abir", age: 25 });
 const nameRef = toRef(person, "name");
 const personRefs = toRefs(person);
 ```
+
+## Options API vs Composition API
+
+| Options API                      | Composition API                        |
+| -------------------------------- | -------------------------------------- |
+| data(){...}                      | ref(), reactive()                      |
+| methods: { doSomething() {...} } | function doSomething() {...}           |
+| computed: { fullName() {...} }   | const fullName = computed(() => {...}) |
+| watch: { ... }                   | watch(dep, (new, old) => {...})        |
+| provide: { ... } / inject: [...] | provide(key, val) / inject(key)        |
