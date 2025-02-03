@@ -1,6 +1,10 @@
 <script>
 import { ref, computed } from 'vue';
+import UserData from './components/UserData.vue';
 export default {
+  components: {
+    UserData,
+  },
   setup() {
     const age = ref(30);
     const firstName = ref('');
@@ -13,6 +17,8 @@ export default {
     const username = computed(() => {
       return `${firstName.value} ${lastName.value}`;
     });
+
+
     return { username, age, increaseAge, firstName, lastName };
   },
   // data() {
@@ -25,8 +31,7 @@ export default {
 
 <template>
   <section class="container">
-    <h2>{{ username }}</h2>
-    <h3>{{ age }}</h3>
+    <UserData :firstName="firstName" :lastName="lastName" :age="age" />
     <button @click="increaseAge">Change Age</button>
 
     <div>
