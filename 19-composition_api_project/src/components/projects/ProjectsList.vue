@@ -6,7 +6,6 @@ const props = defineProps(['user']);
 const enteredSearchTerm = ref('');
 const activeSearchTerm = ref('');
 
-console.log(props)
 const availableProjects = computed(() => {
   if (activeSearchTerm.value) {
     return props.user.projects.filter((prj) =>
