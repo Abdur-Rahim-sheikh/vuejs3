@@ -215,3 +215,13 @@ const personRefs = toRefs(person);
 | computed: { fullName() {...} }   | const fullName = computed(() => {...}) |
 | watch: { ... }                   | watch(dep, (new, old) => {...})        |
 | provide: { ... } / inject: [...] | provide(key, val) / inject(key)        |
+
+## Options vs Composition API: Lifecycle hooks
+
+| Options API              | Composition API                           |
+| ------------------------ | ----------------------------------------- |
+| beforeCreate, created    | Not needed `setup() replaces these hooks` |
+| beforeMount, mounted     | onBeforeMount, onMounted                  |
+| beforeUpdate, updated    | onBeforeUpdate, onUpdated                 |
+| beforeUnmount, unmounted | onBeforeUnmount, onUnmounted              |
+| errorCaptured            | onErrorCaptured                           |
