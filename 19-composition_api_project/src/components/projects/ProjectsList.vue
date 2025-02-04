@@ -1,10 +1,9 @@
 <script setup>
-import { computed, defineProps } from 'vue';
+import { computed, defineProps, watch } from 'vue';
 import ProjectItem from './ProjectItem.vue';
 import useSearch from '../../composables/useSearch';
 const props = defineProps(['user']);
 const projects = computed(() => props.user?.projects || []);
-console.log(projects);
 const {
   enteredSearchTerm,
   availableItems,
@@ -15,9 +14,9 @@ const hasProjects = computed(() => {
   return props.user.projects && availableItems.value.length > 0;
 });
 
-
-
-
+watch(() => props.user, () => {
+  updateSearch('');
+});
 </script>
 
 <template>

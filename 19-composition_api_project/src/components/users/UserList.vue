@@ -12,6 +12,7 @@ const {
 } = useSearch(users, 'fullName');
 
 
+
 const sorting = ref(null);
 const sort = (mode) => {
   sorting.value = mode;
@@ -21,16 +22,9 @@ const displayedUsers = computed(() => {
   if (!sorting.value) {
     return availableItems.value;
   }
-  return availableItems.value.slice().sort((u1, u2) => {
-    if (sorting.value === 'asc' && u1.fullName > u2.fullName) {
-      return 1;
-    } else if (sorting.value === 'asc') {
-      return -1;
-    } else if (sorting.value === 'desc' && u1.fullName > u2.fullName) {
-      return -1;
-    } else {
-      return 1;
-    }
+  let asc = (sorting.value.toLowerCase() === 'asc')
+  return availableItems.value.toSorted((u1, u2) => {
+    return (asc ^ (u1.fullName > u2.fullName)) ? 1 : -1;
   });
 });
 
