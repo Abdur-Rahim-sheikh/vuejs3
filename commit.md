@@ -7,8 +7,6 @@
 
 - Though it was very modular using `mapActions` and `mapGetters`. But in vue3 useStore is recommended. which is alternative for `this.$store`
 
-|
-
 **0b20c8d** - setup does not allow this.$router so
 
 - we can use the help of router two new method
