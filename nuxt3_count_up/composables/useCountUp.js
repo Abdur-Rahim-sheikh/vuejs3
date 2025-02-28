@@ -1,7 +1,8 @@
-export default function useCountUp(next, prev = null, duration = 1000) {
-    let animatedValue = ref(prev || 0);
+export default function useCountUp(duration = 1000) {
+    let animatedValue = ref(0);
 
-    const animate = (from, to) => {
+    const animate = (to, from = null) => {
+        from = from || 0;
         const startTime = performance.now();
 
         const update = (currentTime) => {
@@ -18,7 +19,5 @@ export default function useCountUp(next, prev = null, duration = 1000) {
         };
         requestAnimationFrame(update);
     };
-    animate(animatedValue.value, next);
-
-    return { animatedValue };
+    return { animatedValue, animate };
 }

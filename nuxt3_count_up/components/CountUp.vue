@@ -1,11 +1,17 @@
 <script setup>
 const props = defineProps(['value'])
+const counter = useCountUp()
 const current = ref(props.value);
+const lastValue = ref(props.value);
 watch(() => props.value, (newValue, oldValue) => {
-    const { animatedValue } = useCountUp(newValue, oldValue)
-    current.value = animatedValue
-}, { immediate: true })
+    counter.animate(newValue, oldValue)
+    current.value = counter.animatedValue
+    lastValue.value = newValue
+})
 
+onActivated(() => {
+    current.value = lastValue.value
+})
 </script>
 
 <template>
