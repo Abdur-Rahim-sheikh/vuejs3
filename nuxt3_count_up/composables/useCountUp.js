@@ -19,5 +19,7 @@ export default function useCountUp(duration = 1000) {
         };
         requestAnimationFrame(update);
     };
-    return { animatedValue, animate };
+    // catch the response inside a computed 
+    // if we want to apply transition to it
+    return { response: animatedValue, animate };
 }

@@ -16,7 +16,7 @@ const generate = (m) => {
 const increment = (table) => {
     let x = Math.floor(Math.random() * table.value.length)
     let y = Math.floor(Math.random() * (table.value[0].length - 1)) + 1
-    table.value[x][y] += Math.floor(Math.random() * 10)
+    table.value[x][y] += Math.floor(Math.random() * 10) + 1
 
     console.log(x, y, table.value[x][y])
 }
