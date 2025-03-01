@@ -21,9 +21,13 @@ onActivated(() => {
 </template>
 
 <style scoped>
-.slide-enter-active,
+.slide-enter-active {
+    transition: all 0.5s ease-out;
+    font-weight: bold;
+}
+
 .slide-leave-active {
-    transition: opacity 0.5s, font-weight 0.5s ease-in-out;
+    transition: all 0.5s ease-in;
     font-weight: bold;
 }
 
